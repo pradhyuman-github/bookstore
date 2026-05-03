@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from "react-router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ScrollTop from "../components/ScrollTop";
+import API from "../config/api";
 
 export default function AllBooks({ openCart }) {
     const [allbook, setAllBook] = useState([]);
@@ -59,7 +60,7 @@ export default function AllBooks({ openCart }) {
     useEffect(() => {
         const fetchAllBooks = async() => {
             try {
-                let url = "http://localhost:5000/books";
+                let url = `${API}/books`;
 
                 const params = new URLSearchParams();
                 if(category) params.append("category", category);
@@ -429,7 +430,7 @@ export default function AllBooks({ openCart }) {
                         className="w-full max-w-60 p-6 sm:p-4 sm:m-4 bg-white rounded-xl hover:shadow-xl transition-all duration-300 flex flex-col"
                     >
                         <img
-                        src={`http://localhost:5000/${book.images?.[0]}`}
+                        src={`${API}/${book.images?.[0]}`}
                         alt={book.bookName}
                         className="w-24 h-32 sm:w-full sm:h-80 object-cover mx-auto"
                         />

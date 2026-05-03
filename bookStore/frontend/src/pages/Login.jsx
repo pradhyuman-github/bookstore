@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
+import API from "../config/api";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ export default function Login() {
         e.preventDefault();
 
         try{
-            const res = await fetch("http://localhost:5000/users/login", {
+            const res = await fetch(`${API}/users/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", },
                 credentials: "include",

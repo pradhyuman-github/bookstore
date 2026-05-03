@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API from "../config/api";
 
 export default function CreateCoupon() {
     const [message, setMessage] = useState("");
@@ -108,8 +109,9 @@ export default function CreateCoupon() {
                 perUserLimit: form.perUserLimit ? Number(form.perUserLimit) : null,
             }
 
-            const res = await fetch("http://localhost:5000/coupon/create-coupon", {
+            const res = await fetch(`${API}/coupon/create-coupon`, {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type" : "application/json", },
                 body: JSON.stringify(payload),
             });
@@ -144,7 +146,7 @@ export default function CreateCoupon() {
     useEffect(() => {
         const fetchCouponData = async () => {
             try {
-                const res = await fetch("http://localhost:5000/books/view-book");
+                const res = await fetch(`${API}/books/view-book`);
                 const data = await res.json();
                 const books = data.data || [];
 

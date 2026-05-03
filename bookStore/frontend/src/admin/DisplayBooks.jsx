@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import API from "../config/api";
 
 export default function DisplayBooks() {
     const [books, setBooks] = useState([]);
@@ -23,7 +24,7 @@ export default function DisplayBooks() {
 
     const fetchBooks = async() => {
         try {
-            const res = await fetch("http://localhost:5000/books/view-book");
+            const res = await fetch(`${API}/books/view-book`);
             const data = await res.json();
             setBooks(data.data);
         }
@@ -43,8 +44,11 @@ export default function DisplayBooks() {
     // Delete book
     const confirmDelete = async() => {
         try {
-            const res = await fetch(`http://localhost:5000/books/delete-book/${deleteId}`, 
-                { method: "DELETE" }
+            const res = await fetch(`${API}/books/delete-book/${deleteId}`, 
+                { 
+                    method: "DELETE",
+                    credentials: "include"
+                }
             );
 
             const data = await res.json();
@@ -128,9 +132,10 @@ export default function DisplayBooks() {
         } );
 
         try {
-            const res = await fetch(`http://localhost:5000/books/update-book/${editBooks._id}`, 
+            const res = await fetch(`${API}/books/update-book/${editBooks._id}`, 
                 {
                     method: "PUT",
+                    credentials: "include",
                     body: formData,
                 }
             );
@@ -254,7 +259,7 @@ export default function DisplayBooks() {
                                 {/* Image */}
                                 <td className="p-3">
                                     <img
-                                        src={`http://localhost:5000/${book.images[0]}`}
+                                        src={`${API}/${book.images[0]}`}
                                         alt="book"
                                         className="w-14 h-20 object-cover mx-auto rounded"
                                     />

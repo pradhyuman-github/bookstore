@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API from "../config/api";
 
 export default function Offer() {
   const [offers, setOffers] = useState([]);
@@ -6,7 +7,7 @@ export default function Offer() {
   useEffect(() => {
     const fetchOffers = async () => {
       try {
-        const res = await fetch("http://localhost:5000/coupon/view-coupon");
+        const res = await fetch(`${API}/coupon/view-coupon`);
         const data = await res.json();
 
         // only active + not expired

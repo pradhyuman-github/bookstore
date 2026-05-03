@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import API from "../config/api";
 
 export default function AdminHome() {
   const [stats, setStats] = useState({});
@@ -7,7 +8,7 @@ export default function AdminHome() {
   // for showing stats
   useEffect(() => {
     const fetchStats = async() => {
-      const res = await fetch("http://localhost:5000/books/book-stats");
+      const res = await fetch(`${API}/books/book-stats`);
       const data = await res.json();
       setStats(data.data);
     };
@@ -19,7 +20,7 @@ export default function AdminHome() {
   useEffect(() => {
     const fetchRecentBooks = async() => {
       try {
-        const res = await fetch("http://localhost:5000/books/view-book");
+        const res = await fetch(`${API}/books/view-book`);
         const data = await res.json();
 
         // only 4 books
@@ -76,7 +77,7 @@ export default function AdminHome() {
               className="min-w-37.5 bg-stone-300 p-3 rounded-lg"
             >
               <img
-                src={`http://localhost:5000/${book.images[0]}`}
+                src={`${API}/${book.images[0]}`}
                 alt="book"
                 className="w-full h-fit object-cover rounded"
               />

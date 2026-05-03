@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import API from "../config/api";
 
 const InvoiceDetail = () => {
   const pdfRef = useRef();
@@ -13,7 +14,7 @@ const InvoiceDetail = () => {
   useEffect(() => {
     const getUser = async() => {
       try {
-        const res = await fetch("http://localhost:5000/users/user-profile", 
+        const res = await fetch(`${API}/users/user-profile`, 
           {
             method: "GET",
             credentials: "include"

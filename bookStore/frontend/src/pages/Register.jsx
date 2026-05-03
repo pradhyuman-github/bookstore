@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
+import API from "../config/api";
 
 export default function Register() {
     const [message, setMessage] = useState("");
@@ -31,11 +32,12 @@ const handleSubmitBtn = async (e) => {
     }
 
     try {
-        const res = await fetch("http://localhost:5000/users/register", {
+        const res = await fetch(`${API}/users/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify(formData),
         });
 

@@ -6,6 +6,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import API from "../config/api";
 
 export default function BestSeller({addToCart}) {
 
@@ -18,7 +19,7 @@ export default function BestSeller({addToCart}) {
 
         <div className="w-full max-w-70 sm:max-w-75 h-80 sm:h-110 p-4 m-0.5 sm:m-2 mb-8 bg-white rounded-xl flex flex-col items-center hover:shadow-lg hover:-translate-y-2 transition-all duration-300" >
             <img 
-                src={`http://localhost:5000/${book.images[0]}`} 
+                src={`${API}/${book.images[0]}`} 
                 alt={book.bookName}
                 className="w-24 h-32 sm:w-40 sm:h-60 object-cover rounded-lg shadow-md" 
             />
@@ -56,7 +57,7 @@ export default function BestSeller({addToCart}) {
         const fetchBestSellers = async() => {
             try {
                 if(viewMode === "mostRead") {
-                    const res = await fetch("http://localhost:5000/books?category=bestSeller&sub=mostRead");
+                    const res = await fetch(`${API}/books?category=bestSeller&sub=mostRead`);
                     const data = await res.json();
 
                     if(data.success) {
@@ -64,7 +65,7 @@ export default function BestSeller({addToCart}) {
                     }
                 }
                 else if(viewMode === "mostPopular") {
-                    const res = await fetch("http://localhost:5000/books?category=bestSeller&sub=mostPopular");
+                    const res = await fetch(`${API}/books?category=bestSeller&sub=mostPopular`);
                     const data = await res.json();
 
                     if(data.success) {
@@ -72,10 +73,10 @@ export default function BestSeller({addToCart}) {
                     }
                 }
                 else {
-                    const readRes = await fetch("http://localhost:5000/books?category=bestSeller&sub=mostRead");
+                    const readRes = await fetch(`${API}/books?category=bestSeller&sub=mostRead`);
                     const readData = await readRes.json();
 
-                    const popularRes = await fetch("http://localhost:5000/books?category=bestSeller&sub=mostPopular");
+                    const popularRes = await fetch(`${API}/books?category=bestSeller&sub=mostPopular`);
                     const popularData = await popularRes.json();
                     
                     if(readData.success) setMostRead(readData.data);

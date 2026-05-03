@@ -6,6 +6,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import API from "../config/api";
 
 export default function Recommended({ addToCart }) {
 
@@ -19,7 +20,7 @@ export default function Recommended({ addToCart }) {
         <div className="w-full max-w-70 h-80 sm:h-110 p-4 bg-stone-50 rounded-xl shadow-md flex flex-col items-center hover:shadow-lg hover:-translate-y-2 transition-all duration-300">
 
             <img
-                src={`http://localhost:5000/${book.images[0]}`}
+                src={`${API}/${book.images[0]}`}
                 alt={book.bookName}
                 className="w-24 h-32 sm:w-40 sm:h-60 object-cover rounded-md shrink-0"
             />
@@ -66,7 +67,7 @@ export default function Recommended({ addToCart }) {
         const fetchEditorBooks = async () => {
             try {
                 const res = await fetch(
-                    "http://localhost:5000/books?category=recommended"
+                    `${API}/books?category=recommended`
                 );
 
                 const data = await res.json();

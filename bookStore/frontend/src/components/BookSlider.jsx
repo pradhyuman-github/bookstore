@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
+import API from "../config/api";
 
 export default function BookSlider() {
   const containerRef = useRef(null);
@@ -11,7 +12,7 @@ export default function BookSlider() {
   useEffect(() => {
     const fetchSliderBooks = async() => {
       try {
-        const res = await fetch("http://localhost:5000/books/book-slider");
+        const res = await fetch(`${API}/books/book-slider`);
         const data = await res.json();
 
         if(data.success) {
@@ -108,7 +109,7 @@ export default function BookSlider() {
             onClick = {() => navigate(`/product/${book._id}`)}
           >
             <img
-              src={`http://localhost:5000/${book.images[0]}`}
+              src={`${API}/${book.images[0]}`}
               alt="book"
               className="max-w-full max-h-full object-contain rounded-lg shadow-md pointer-events-none"
             />

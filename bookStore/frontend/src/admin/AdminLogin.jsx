@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import API from "../config/api";
 
 export default function AdminLogin() {
 
@@ -14,7 +15,7 @@ export default function AdminLogin() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/users/admin-login", {
+      const res = await fetch(`${API}/users/admin-login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -47,7 +48,7 @@ export default function AdminLogin() {
   useEffect(() => {
     const checkAdmin = async() => {
       try {
-        const res = await fetch("http://localhost:5000/users/user-profile", { credentials: "include" });
+        const res = await fetch(`${API}/users/user-profile`, { credentials: "include" });
         const data = await res.json();
 
         if(data.success && data.user?.role === "admin") {

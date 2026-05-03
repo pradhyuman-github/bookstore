@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useSearchParams } from "react-router";
+import API from "../config/api";
 
 export default function DisplayOrder() {
     const [viewOrder, setViewOrder] = useState([]);
@@ -173,8 +174,9 @@ export default function DisplayOrder() {
         const { orderId, newStatus } = confirmModal;
 
         try {
-            const res = await fetch(`http://localhost:5000/checkout/update-status/${orderId}` , {
+            const res = await fetch(`${API}/checkout/update-status/${orderId}` , {
                 method: "PUT",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ status: newStatus })
             }); 
@@ -227,9 +229,10 @@ export default function DisplayOrder() {
 
     const handleCancelDecision = async(orderId, decision) => {
         try {
-            const res = await fetch(`http://localhost:5000/checkout/cancel-decision/${orderId}`,
+            const res = await fetch(`${API}/checkout/cancel-decision/${orderId}`,
                 {
                     method: "PUT",
+                    credentials: "include",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({decision})
                 }
@@ -248,9 +251,10 @@ export default function DisplayOrder() {
 
     const handleReturnDecision = async(orderId, decision) => {
         try {
-            const res = await fetch(`http://localhost:5000/checkout/return-decision/${orderId}`,
+            const res = await fetch(`${API}/checkout/return-decision/${orderId}`,
                 {
                     method: "PUT",
+                    credentials: "include",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ decision })
                 }
@@ -300,7 +304,7 @@ export default function DisplayOrder() {
     useEffect(() => {
         const fetchOrder = async () => {
             try {
-                const res = await fetch("http://localhost:5000/checkout/all-orders", { credentials: "include" });
+                const res = await fetch(`${API}/checkout/all-orders`, { credentials: "include" });
                 const data = await res.json();
 
                 if (!res.ok) {
@@ -325,7 +329,7 @@ export default function DisplayOrder() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const res = await fetch("http://localhost:5000/books/view-book");
+                const res = await fetch(`${API}/books/view-book`);
                 const data = await res.json();
 
                 if (data.success) {
@@ -729,7 +733,7 @@ export default function DisplayOrder() {
                                                     <div className="mt-3 border-t pt-3 flex flex-col sm:flex-row gap-4">
                                                         <div className="p-2">
                                                             <img
-                                                                src={`http://localhost:5000/${book.images[0]}`}
+                                                                src={`${API}/${book.images[0]}`}
                                                                 alt={book.bookName}
                                                                 className="w-32 h-48 object-cover mb-2"
                                                             />

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router";
+import API from "../config/api";
 
 export default function AdminHeader() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -7,7 +8,7 @@ export default function AdminHeader() {
 
     const handleLogout = async() => {
         try {
-            await fetch("http://localhost:5000/users/logout", {
+            await fetch(`${API}/users/logout`, {
                 method: "POST",
                 credentials: "include"
             });

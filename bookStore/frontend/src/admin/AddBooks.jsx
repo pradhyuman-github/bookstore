@@ -1,4 +1,5 @@
 import { useState } from "react";
+import API from "../config/api";
 
 export default function AddBooks() {
     const [text, setText] = useState("");
@@ -63,7 +64,7 @@ export default function AddBooks() {
         });
 
         try {
-            const res = await fetch("http://localhost:5000/books/add-book", {
+            const res = await fetch(`${API}/books/add-book`, {
                 method: "POST",
                 body: formData,
             });

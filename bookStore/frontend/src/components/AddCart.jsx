@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router";
+import API from "../config/api";
 
 export default function AddCart({ isOpen, onClose, cart, setCart }) {
     const navigate = useNavigate();
@@ -68,7 +69,7 @@ export default function AddCart({ isOpen, onClose, cart, setCart }) {
                             className="flex gap-3 mb-4 border-b pb-2"
                         >
                             <img
-                                src={`http://localhost:5000/${item.image}`}
+                                src={`${API}/${item.image}`}
                                 className="w-16 h-20 object-cover"
                             />
 

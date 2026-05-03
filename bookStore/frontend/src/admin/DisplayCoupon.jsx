@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import API from "../config/api";
 
 export default function DisplayCoupon() {
     const [viewCoupon, setViewCoupon] = useState([]);
@@ -29,7 +30,7 @@ export default function DisplayCoupon() {
 
     const fetchCouponData = async () => {
         try {
-            const res = await fetch("http://localhost:5000/coupon/view-coupon");
+            const res = await fetch(`${API}/coupon/view-coupon`);
 
             const data = await res.json();
             setViewCoupon(data.data || []);
@@ -51,8 +52,9 @@ export default function DisplayCoupon() {
 
     const handleDelete = async() => {
         try {
-            await fetch(`http://localhost:5000/coupon/delete-coupon/${deleteId}`, {
+            await fetch(`${API}/coupon/delete-coupon/${deleteId}`, {
                 method: "DELETE",
+                credentials: "include"
             });
 
             setViewCoupon( prev => prev.filter(c => c._id !== deleteId) );
@@ -94,7 +96,7 @@ export default function DisplayCoupon() {
                 return;
             }
 
-            const res = await fetch(`http://localhost:5000/coupon/update-coupon/${editingCoupon._id}`, 
+            const res = await fetch(`${API}/coupon/update-coupon/${editingCoupon._id}`, 
                 {
                     method: "PUT",
                     credentials: "include",

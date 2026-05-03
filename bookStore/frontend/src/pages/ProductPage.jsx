@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
+import API from "../config/api";
 
 export default function ProductPage() {
     const { productId } = useParams();
@@ -10,7 +11,7 @@ export default function ProductPage() {
     useEffect(() => {
         const fetchProductBook = async() => {
             try {
-                const res = await fetch(`http://localhost:5000/books/${productId}`);
+                const res = await fetch(`${API}/books/${productId}`);
                 const data = await res.json();
 
                 if(data.success) {
@@ -43,7 +44,7 @@ export default function ProductPage() {
 
             <div className="w-full lg:w-1/2 py-6 flex items-center justify-center overflow-hidden">
                 <img 
-                src={`http://localhost:5000/${productBook.images[0]}`} 
+                src={`${API}/${productBook.images[0]}`} 
                 alt="image"
                 className="w-52 sm:w-72 md:w-80 lg:w-105 h-auto object-cover rounded-lg shadow-md" />
             </div>

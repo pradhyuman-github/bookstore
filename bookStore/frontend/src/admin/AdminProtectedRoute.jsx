@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router";
+import API from "../config/api";
 
 export default function AdminProtectedRoute({ children }) {
 
@@ -7,7 +8,7 @@ export default function AdminProtectedRoute({ children }) {
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/users/admin-check",
+    fetch(`${API}/users/admin-check`,
       {
         credentials: "include"
       }

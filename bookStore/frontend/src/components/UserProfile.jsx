@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import API from "../config/api";
 
 export default function UserProfile() {
     const [user, setUser] = useState(null);
@@ -20,9 +21,10 @@ export default function UserProfile() {
 
     const handleCancelRequest = async(orderId) => {
         try {
-            const res = await fetch(`http://localhost:5000/checkout/cancel-request/${orderId}`,
+            const res = await fetch(`${API}/checkout/cancel-request/${orderId}`,
                 {
                     method: "PUT",
+                    credentials: "include",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ reason: cancelReason })
                 }
@@ -66,9 +68,10 @@ export default function UserProfile() {
 
     const handleReturnRequest = async(orderId) => {
         try {
-            const res = await fetch(`http://localhost:5000/checkout/return-request/${orderId}`,
+            const res = await fetch(`${API}/checkout/return-request/${orderId}`,
                 {
                     method: "PUT",
+                    credentials: "include",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ reason: returnReason })
                 }
@@ -120,7 +123,7 @@ export default function UserProfile() {
     useEffect(() => {
         const fetchProfile = async() => {
             try {
-                const userRes = await fetch("http://localhost:5000/users/user-profile", { credentials: "include" });
+                const userRes = await fetch(`${API}/users/user-profile`, { credentials: "include" });
                 const userData = await userRes.json();
 
                 if(!userData.success) {
@@ -131,7 +134,7 @@ export default function UserProfile() {
                 setUser(userData.user);
 
                 const orderRes  = await fetch(
-                `http://localhost:5000/checkout/user/${userData.user._id}`,
+                `${API}/checkout/user/${userData.user._id}`,
                 {
                     credentials: "include"
                 }
@@ -162,7 +165,7 @@ export default function UserProfile() {
 
     const handleLogout = async() => {
         try {
-            await fetch("http://localhost:5000/users/logout", {
+            await fetch(`${API}/users/logout`, {
                 method: "POST",
                 credentials: "include"
             });

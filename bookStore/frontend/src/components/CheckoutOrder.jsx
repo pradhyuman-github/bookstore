@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router";
+import API from "../config/api";
 
 export default function CheckoutOrder({ form }) {
     const navigate = useNavigate();
@@ -244,7 +245,7 @@ export default function CheckoutOrder({ form }) {
         };
 
         try {
-            const res = await fetch("http://localhost:5000/checkout", {
+            const res = await fetch(`${API}/checkout`, {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json", },
@@ -271,7 +272,7 @@ export default function CheckoutOrder({ form }) {
     useEffect(() => {
         const fetchCouponCode = async() => {
             try {
-                const res = await fetch("http://localhost:5000/coupon/view-coupon");
+                const res = await fetch(`${API}/coupon/view-coupon`);
                 const data = await res.json();
 
                 setCouponCode(data.data || []);
