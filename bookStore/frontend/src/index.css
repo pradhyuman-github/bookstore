@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* swiper styles */
+/* DOTS */
+.bookSwiper .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: #a1a1aa; /* zinc-400 */
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+/* ACTIVE DOT */
+.bookSwiper .swiper-pagination-bullet-active {
+  width: 28px;
+  border-radius: 9999px;
+  background: #f59e0b; /* amber-500 */
+}
+
+/* NAVIGATION BUTTONS */
+.bookSwiper .swiper-button-next,
+.bookSwiper .swiper-button-prev  {
+  width: 32px !important;
+  height: 46px !important;
+  padding: 8px;
+  border-radius: 9px !important;
+  color: black !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* HOVER EFFECT */
+.bookSwiper .swiper-button-next:hover,
+.bookSwiper .swiper-button-prev:hover {
+  background: #f59e0b !important;
+}
+
+
+/* recommend section swiper style */
+/* DOTS */
+.recommendSwiper .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: #a1a1aa ; 
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+/* ACTIVE DOT */
+.recommendSwiper .swiper-pagination-bullet-active {
+  width: 28px;
+  border-radius: 9999px;
+  background: #c084fc  ; 
+}
+
+/* NAVIGATION BUTTONS */
+.recommendSwiper .swiper-button-next,
+.recommendSwiper .swiper-button-prev  {
+  width: 32px !important;
+  height: 46px !important;
+  padding: 8px;
+  border-radius: 9px !important;
+  color: black !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  transition: all 0.3s ease !important;
+}
+
+.recommendSwiper .swiper-button-next:hover,
+.recommendSwiper .swiper-button-prev:hover {
+  background: #c084fc   !important;
+}
+
+@media (max-width: 640px) {
+  .bookSwiper .swiper-button-next,
+  .bookSwiper .swiper-button-prev,
+  .recommendSwiper .swiper-button-next,
+  .recommendSwiper .swiper-button-prev   {
+    display: none;
+  }
+}
