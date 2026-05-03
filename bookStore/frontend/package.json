@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-pdf/renderer": "^3.1.14",
     "@tailwindcss/vite": "^4.2.2",
     "country-state-city": "^3.2.1",
     "html2canvas": "^1.4.1",
