@@ -96,7 +96,7 @@ router.post("/admin-login", loginLimiter, async(req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
-      sameSite: "None",
+      sameSite: "none",
       maxAge: 24 * 60 * 60 * 1000
     });
 
@@ -152,7 +152,7 @@ router.post("/login", loginLimiter, async(req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
-      sameSite: "None",
+      sameSite: "none",
       maxAge: 24 * 60 * 60 * 1000
     });
 
@@ -174,7 +174,7 @@ router.post("/logout", (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
     secure: true,
-    sameSite: "None"
+    sameSite: "none"
   });
 
   res.json({
