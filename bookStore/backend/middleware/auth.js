@@ -20,7 +20,7 @@ export const auth = (req, res, next) => {
         next();
     }
     catch(err) {
-        return res.status(500).json({
+        return res.status(401).json({
             message: "Invalid token"
         });
     }

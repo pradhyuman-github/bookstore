@@ -123,7 +123,10 @@ export default function UserProfile() {
     useEffect(() => {
         const fetchProfile = async() => {
             try {
-                const userRes = await fetch(`${API}/users/user-profile`, { credentials: "include" });
+                const userRes = await fetch(`${API}/users/user-profile`, { 
+                    method: "GET",
+                    credentials: "include" 
+                });
                 const userData = await userRes.json();
 
                 if(!userData.success) {
