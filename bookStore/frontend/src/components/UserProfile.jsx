@@ -130,7 +130,8 @@ export default function UserProfile() {
                 const userData = await userRes.json();
 
                 if(!userData.success) {
-                    navigate("/login", { replace: true })
+                    // navigate("/login", { replace: true })
+                    console.log("USER PROFILE RESPONSE (ERROR)- ", userData);
                     return;
                 }
 
@@ -156,9 +157,9 @@ export default function UserProfile() {
 
                 setLoading(false);
 
-                navigate("/login", {
-                    replace: true
-                });
+                // navigate("/login", {
+                //     replace: true
+                // });
             }
         };
 

@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 export const auth = (req, res, next) => {
     try {
         const token = req.cookies.token;
-        console.log("token: ", token);
+        console.log("TOKEN received: ", token);
 
         if(!token) {
             return res.status(401).json({
@@ -11,7 +11,7 @@ export const auth = (req, res, next) => {
             });
         }
 
-        console.log("AUTH SECRET:", process.env.JWT_TOKEN);
+        console.log("JWT AUTH SECRET:", process.env.JWT_TOKEN);
         const decoded = jwt.verify(
             token,
             process.env.JWT_TOKEN
