@@ -137,7 +137,8 @@ router.post("/login", loginLimiter, async(req, res) => {
 
     // remove password
     const { createPassword: _, ...safeUser } = user.toObject();
-
+    
+    console.log("LOGIN SECRET:", process.env.JWT_TOKEN);
     const token = jwt.sign(
       {
         userId: user._id,

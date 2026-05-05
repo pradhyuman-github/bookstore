@@ -11,6 +11,7 @@ export const auth = (req, res, next) => {
             });
         }
 
+        console.log("AUTH SECRET:", process.env.JWT_TOKEN);
         const decoded = jwt.verify(
             token,
             process.env.JWT_TOKEN
