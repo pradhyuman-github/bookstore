@@ -1,24 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavLink, Link } from "react-router";
 
-export default function Header({ openCart }) {
-    const [user, setUser] = useState(() => {
-        return JSON.parse(localStorage.getItem("user"));
-    });
+export default function Header({ openCart, user }) {
+    // const [user, setUser] = useState(() => {
+    //     return JSON.parse(localStorage.getItem("user"));
+    // });
 
     const [menuOpen, setMenuOpen] = useState(false);
 
-    useEffect(() => {
-        const handleStorageChange = () => {
-            setUser(JSON.parse(localStorage.getItem("user")));
-        };
+    // useEffect(() => {
+    //     const handleStorageChange = () => {
+    //         setUser(JSON.parse(localStorage.getItem("user")));
+    //     };
 
-        window.addEventListener("storage", handleStorageChange);
+    //     window.addEventListener("storage", handleStorageChange);
 
-        return () => {
-            window.removeEventListener("storage", handleStorageChange);
-        };
-    }, []);
+    //     return () => {
+    //         window.removeEventListener("storage", handleStorageChange);
+    //     };
+    // }, []);
 
     return(
         <div className="bg-zinc-800 w-full relative">

@@ -26,6 +26,8 @@ export default function AdminLogin() {
       const data = await res.json();
 
       if (res.ok) {
+        localStorage.setItem("admin", "true");
+        
         setMessage("Admin login successful", "success");
  
         setTimeout(() => {

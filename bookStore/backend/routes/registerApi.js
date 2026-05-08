@@ -53,7 +53,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// post - admin login
+// post - admin login 
 router.post("/admin-login", loginLimiter, async(req, res) => {
   const {email , createPassword} = req.body;
 
@@ -88,15 +88,15 @@ router.post("/admin-login", loginLimiter, async(req, res) => {
         role: user.role
       },
       process.env.JWT_TOKEN,
-      {
-        expiresIn: "1d"
-      }
+
+      { expiresIn: "1d" }
     );
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "None",
+      secure: true,      // true - prod
+      sameSite: "none",  // none 
+      path: "/",
       maxAge: 24 * 60 * 60 * 1000
     });
 
@@ -115,7 +115,7 @@ router.post("/admin-login", loginLimiter, async(req, res) => {
 
 });
 
-// post - user login 
+// post - user login
 router.post("/login", loginLimiter, async(req, res) => {
   const {email, createPassword} = req.body;
   try {
@@ -130,7 +130,7 @@ router.post("/login", loginLimiter, async(req, res) => {
     const isMatch = await bcrypt.compare(createPassword, user.createPassword);
 
     if(!isMatch) {
-      return res.status(400).json({
+      return res.status(401).json({
         message: "Invalid email or password"
       });
     }
@@ -138,28 +138,32 @@ router.post("/login", loginLimiter, async(req, res) => {
     // remove password
     const { createPassword: _, ...safeUser } = user.toObject();
     
-    console.log("LOGIN SECRET:", process.env.JWT_TOKEN);
     const token = jwt.sign(
       {
         userId: user._id,
         role: user.role
       },
+
       process.env.JWT_TOKEN,
-      {
-        expiresIn: "1d"
-      }
+
+      { expiresIn: "1d" }
     );
 
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
-      sameSite: "None",
+      sameSite: "none",
+      path: "/",
       maxAge: 24 * 60 * 60 * 1000
     });
 
     res.json({
       message: "Login successful",
-      user: safeUser,
+      user: {
+        id: user._id,
+        email: user.email,
+        role: user.role
+      },
     });
   }
   catch(err) {
@@ -170,12 +174,14 @@ router.post("/login", loginLimiter, async(req, res) => {
 
 });
 
+
 // post - logout
 router.post("/logout", (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
     secure: true,
-    sameSite: "None"
+    sameSite: "none",
+    path: "/"
   });
 
   res.json({
@@ -183,19 +189,28 @@ router.post("/logout", (req, res) => {
   });
 });
 
+
 // get - check auth admin
 router.get("/admin-check", auth, admin, (req, res) => {
+  if(req.user.role !== "admin") {
+    return res.status(403).json({
+      success: false,
+      message: "Access denied"
+    });
+  }
+  
   res.json({
+    success: true,
     message: "Admin verified"
   });
 });
 
-// get - user profile
-router.get("/user-profile", auth, async(req, res) => {
 
+// get - user profile 
+router.get("/user-profile", auth, async(req, res) => {
   try {
 
-    const user = await User.findById(req.user.userId).select("-createPassword");
+    const user = req.user;
 
     res.json({
       success: true,

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router";
 import API from "../config/api";
 
-export default function Login() {
+export default function Login({ setUser }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
@@ -24,18 +24,25 @@ export default function Login() {
 
             const data = await res.json();
 
-            if(res.ok) {
-                setMessage("Login successful");
-                setType("success");
-
-                setTimeout(() => {
-                    navigate("/", { replace: true });
-                }, 2000);
-            }
-            else {
-                setMessage("Login failed" + data.message);
+            if(!res.ok) {
+                setMessage(data.message || "Login failed");
                 setType("error");
+                return;
             }
+
+            setUser(data.user);
+
+            console.log("Login successful", data);
+
+            localStorage.setItem("user", JSON.stringify(data.user));
+
+            setMessage("Login successful");
+            setType("success");
+
+            setTimeout(() => {
+                navigate("/", { replace: true });
+            }, 1000);
+
         }
         catch(err) {
             setMessage("Sever error");

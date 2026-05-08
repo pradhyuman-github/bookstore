@@ -26,7 +26,10 @@ import AddCart from './components/AddCart';
 import Checkout from './pages/Checkout';
 import InvoicePage from './components/InvoicePDF';
 
+import API from './config/api';
+
 function App() {
+  const [user, setUser] = useState(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const [cart, setCart] = useState(
@@ -39,6 +42,35 @@ function App() {
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
+
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+
+    if(!storedUser) return;
+    
+    const checkUser = async() => {
+      try {
+        const res = await fetch(`${API}/users/user-profile`,
+          { credentials: "include" }
+        );
+        
+        const data = await res.json();
+
+        if(data.success) {
+          setUser(data.user);
+        }
+        else {
+          localStorage.removeItem("user");
+        }
+      }
+      catch(err) {
+        console.log(err);
+      }
+    };
+
+    checkUser();
+  }, []);
 
   const addToCart = (product) => {
     console.log("ADDING PRODUCT:", product);
@@ -80,13 +112,18 @@ function App() {
           <Route path='/' element={
             <Home 
               openCart={() => setIsCartOpen(true)} 
-              addToCart={addToCart} />
+              addToCart={addToCart} 
+              user={user} />
             } 
           /> 
 
-          <Route path='/login' element={<Login />} />
+          <Route path='/login' element={<Login setUser={setUser} />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/profile' element={<UserProfile />} />
+          <Route path='/profile' 
+            element={
+              <UserProfile user={user ? <UserProfile /> : <Login />} />
+            } 
+          />
 
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/invoice' element={<InvoicePage />} />

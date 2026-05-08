@@ -6,7 +6,7 @@ import { admin } from "../middleware/admin.js";
 
 const addBookRouter = express.Router();
 
-// post method - save form data in db
+// post method - save form data in db 
 addBookRouter.post("/add-book", auth, admin, upload.array("bookImg", 3), async(req, res) => {
     try {
         const {bookName, authorName, language, publishYear, bookDesc, bookPrice, genre, bookStock, category} = req.body;
@@ -214,7 +214,7 @@ addBookRouter.get("/:id", async(req, res) => {
     }
 });
 
-// delete method
+// delete method 
 addBookRouter.delete("/delete-book/:id", auth, admin, async (req, res) => {
     try {
         const { id } = req.params;
@@ -238,7 +238,7 @@ addBookRouter.delete("/delete-book/:id", auth, admin, async (req, res) => {
     }
 });
 
-// update method
+// update method 
 addBookRouter.put("/update-book/:id", auth, admin, upload.array("bookImg", 3), async(req, res) => {
     try {
         const { id } = req.params;

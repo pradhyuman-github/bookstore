@@ -8,22 +8,31 @@ export default function AdminProtectedRoute({ children }) {
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
-    fetch(`${API}/users/admin-check`,
-      {
-        credentials: "include"
-      }
-    )
-    .then(res => {
-        if (res.ok) {
-            setAuthorized(true);
+    const checkAdmin = async() => {
+      try {
+        const res = await fetch(`${API}/users/admin-check`,
+          { credentials: "include" }
+        );
+
+        const data = await res.json();
+
+        if(res.ok && data.success) {
+          setAuthorized(true);
         }
-
+        else {
+          setAuthorized(false);
+        }
+      }
+      catch(err) {
+        console.log(err);
+        setAuthorized(false);
+      }
+      finally {
         setLoading(false);
-    })
-    .catch(() => {
-      setLoading(false);
-    });
+      }
+    };
 
+    checkAdmin();
   }, []);
 
   if (loading) {

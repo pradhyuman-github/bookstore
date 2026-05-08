@@ -5,6 +5,7 @@ import { admin } from "../middleware/admin.js";
 
 const checkoutRouter = express.Router();
 
+// post - order form 
 checkoutRouter.post("/", auth, async(req, res) => {
     try {
         const { userId, customer, shippingAddress, items, coupon, pricing } = req.body;
@@ -48,7 +49,7 @@ checkoutRouter.post("/", auth, async(req, res) => {
     }
 });
 
-// for all orders
+// for all orders 
 checkoutRouter.get("/all-orders", auth, admin, async(req, res) => {
     try {
         const orders = await CheckoutDetail.find().sort({ createdAt: -1 });
@@ -68,7 +69,7 @@ checkoutRouter.get("/all-orders", auth, admin, async(req, res) => {
 });
 
 // for user order only
-checkoutRouter.get("/user/:userId", auth, async (req, res) => {
+checkoutRouter.get("/user/:userId", auth,  async (req, res) => {
     try {
         const { userId } = req.params;
 
@@ -164,7 +165,7 @@ checkoutRouter.put("/cancel-request/:id", auth, async(req, res) => {
     }
 });
 
-// for return
+// for return 
 checkoutRouter.put("/return-request/:id", auth, async(req, res) => {
     try {
         const {reason} = req.body;
@@ -235,7 +236,7 @@ checkoutRouter.put("/cancel-decision/:id", auth, admin, async(req, res) => {
     }
 });
 
-// admin approve/reject return request
+// admin approve/reject return request 
 checkoutRouter.put("/return-decision/:id", auth, admin, async(req, res) => {
     try {
         const { decision } = req.body;

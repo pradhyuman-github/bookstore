@@ -121,6 +121,13 @@ export default function UserProfile() {
     };
 
     useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+
+        if(!storedUser) {
+            navigate("/login", { replace: true });
+            return;
+        }
+
         const fetchProfile = async() => {
             try {
                 const userRes = await fetch(`${API}/users/user-profile`, { 
@@ -130,8 +137,8 @@ export default function UserProfile() {
                 const userData = await userRes.json();
 
                 if(!userData.success) {
-                    // navigate("/login", { replace: true })
-                    console.log("USER PROFILE RESPONSE (ERROR)- ", userData);
+                    localStorage.removeItem("user");
+                    navigate("/login", { replace: true })
                     return;
                 }
 
@@ -154,12 +161,7 @@ export default function UserProfile() {
             }
             catch(err) {
                 console.log("Profile fetch error:",err);
-
                 setLoading(false);
-
-                // navigate("/login", {
-                //     replace: true
-                // });
             }
         };
 
@@ -173,6 +175,9 @@ export default function UserProfile() {
                 method: "POST",
                 credentials: "include"
             });
+
+            localStorage.removeItem("admin");
+            localStorage.removeItem("user");
 
             setUser(null);
             setOrders([]);

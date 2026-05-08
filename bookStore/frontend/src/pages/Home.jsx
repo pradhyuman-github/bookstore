@@ -9,7 +9,7 @@ import Offer from "../components/Offer";
 import { motion } from "motion/react";
 
 
-export default function Home({ openCart, addToCart }) {
+export default function Home({ openCart, addToCart, user }) {
     
     return (
         <div className="relative z-0 w-full mx-auto overflow-x-hidden">
@@ -18,7 +18,7 @@ export default function Home({ openCart, addToCart }) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, ease: "easeOut" }}
             >
-                <Header openCart={openCart} />
+                <Header openCart={openCart} user={user} />
             </motion.header>
 
 

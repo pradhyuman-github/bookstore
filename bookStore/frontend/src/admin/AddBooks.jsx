@@ -51,12 +51,12 @@ export default function AddBooks() {
         formData.append("language", form.language.value);
         formData.append("publishYear", form.publishYear.value);
         
-        const sectionData = [{
+        const categoryData = [{
             name: selectedCategory,
-            subCategory: selectedSubCategory ? [selectedSubCategory] : []
+            subCategory: selectedSubCategory || null
         }];
 
-        formData.append("section", JSON.stringify(sectionData));
+        formData.append("category", JSON.stringify(categoryData));
         
         // append img manually
         images.forEach((img) => {
@@ -66,6 +66,7 @@ export default function AddBooks() {
         try {
             const res = await fetch(`${API}/books/add-book`, {
                 method: "POST",
+                credentials: "include",
                 body: formData,
             });
 
@@ -261,12 +262,12 @@ export default function AddBooks() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* category */}
                     <div className="flex flex-col gap-2">
-                        <label htmlFor="section" className="font-medium text-gray-700">
+                        <label htmlFor="category" className="font-medium text-gray-700">
                             Category
                         </label>
                         
                         <select
-                            name="section"
+                            name="category"
                             value={selectedCategory}
                             onChange={(e) => {
                                 setSelectedCategory(e.target.value);

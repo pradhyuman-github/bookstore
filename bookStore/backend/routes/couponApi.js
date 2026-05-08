@@ -5,7 +5,7 @@ import { admin } from "../middleware/admin.js";
 
 const couponRouter = express.Router();
 
-// post - add coupon
+// post - add coupon 
 couponRouter.post("/create-coupon", auth, admin, async(req, res) => {
     try {
         const {code, discountType, startDate, expiryDate, buyQuantity, getQuantity} = req.body;
@@ -78,8 +78,8 @@ couponRouter.get("/view-coupon", async(req, res) => {
     }
 });
 
-// put - update coupon
-couponRouter.put("/update-coupon/:id", auth, admin, async(req, res) => {
+// put - update coupon 
+couponRouter.put("/update-coupon/:id", auth, admin,  async(req, res) => {
     try {
         const { id } = req.params;
 
@@ -121,7 +121,7 @@ couponRouter.put("/update-coupon/:id", auth, admin, async(req, res) => {
     }
 });
 
-// delete - delete coupon
+// delete - delete coupon 
 couponRouter.delete("/delete-coupon/:id", auth, admin, async(req,res) => {
     try {
         const { id } = req.params;

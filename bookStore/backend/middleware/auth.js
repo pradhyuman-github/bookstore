@@ -1,24 +1,28 @@
 import jwt from "jsonwebtoken";
+import { User } from "../models/registerModel.js";
 
-export const auth = (req, res, next) => {
+export const auth = async(req, res, next) => {
     try {
-        const token = req.cookies.token;
-        console.log("TOKEN received: ", token);
+        const token = req.cookies?.token;
 
         if(!token) {
             return res.status(401).json({
-                message: "Unauthorized, No token"
+                success: false,
+                message: "Unauthorized (no token)"
             });
         }
 
-        console.log("JWT AUTH SECRET:", process.env.JWT_TOKEN);
-        const decoded = jwt.verify(
-            token,
-            process.env.JWT_TOKEN
-        );
-        console.log("decoded: ", decoded);
+        const decoded = jwt.verify( token, process.env.JWT_TOKEN );
 
-        req.user = decoded;
+        const user = await User.findById(decoded.userId).select("-createPassword");
+
+        if (!user) {
+            return res.status(401).json({ 
+                message: "User not found" 
+            });
+        }
+
+        req.user = user;
 
         next();
     }
