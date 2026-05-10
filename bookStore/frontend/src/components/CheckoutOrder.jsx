@@ -206,13 +206,13 @@ export default function CheckoutOrder({ form }) {
             return;
         }
 
-        if(!user || !user._id) {
+        if(!user || !user.id) {
             setCouponError("User not logged in");
             return;
         }
 
         const orderData = {
-            userId: user?._id,
+            userId: user?.id,
 
             customer: {
                 name: form.name,
@@ -259,6 +259,8 @@ export default function CheckoutOrder({ form }) {
             }
 
             console.log("Saved to db: ", data);
+
+            localStorage.setItem("latestOrder", JSON.stringify(data.order));
 
             localStorage.removeItem("checkoutItems");
 
