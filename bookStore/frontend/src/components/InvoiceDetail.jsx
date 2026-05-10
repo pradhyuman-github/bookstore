@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useLocation } from "react-router";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -8,11 +8,12 @@ const InvoiceDetail = () => {
   const pdfRef = useRef();
   const { state } = useLocation();
 
-  const savedOrder = localStorage.getItem("latestOrder");
-
   const order =
     state?.order ||
-    (savedOrder ? JSON.parse(savedOrder) : null);
+    JSON.parse(localStorage.getItem("latestOrder"));
+
+  const user =
+    JSON.parse(localStorage.getItem("user"));
 
    if (!order) {
       return (
@@ -21,6 +22,20 @@ const InvoiceDetail = () => {
         </p>
       );
     }
+
+    if (!user) {
+    return (
+      <div className="flex flex-col items-center justify-center p-4 m-2 text-lg">
+        <p className="text-center bg-amber-400 p-4 mb-4">
+          User not logged in !!
+        </p>
+
+        <p className="text-center bg-white rounded p-2 mt-4">
+          Login to continue
+        </p>
+      </div>
+    );
+  }
 
 
   const handleDownload = async () => {
