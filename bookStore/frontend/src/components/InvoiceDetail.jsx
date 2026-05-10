@@ -7,54 +7,21 @@ import API from "../config/api";
 const InvoiceDetail = () => {
   const pdfRef = useRef();
   const { state } = useLocation();
-  const order = state?.order || JSON.parse(localStorage.getItem("latestOrder"));
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const getUser = async() => {
-      try {
-        const res = await fetch(`${API}/users/user-profile`, 
-          {
-            method: "GET",
-            credentials: "include"
-          }
-        );
+  const savedOrder = localStorage.getItem("latestOrder");
 
-        const data = await res.json();
-        
-        if(data.success) {
-          setUser(data.user);
-        }
-      }
-      catch(err) {
-        console.log(err);
-      }
-      finally {
-        setLoading(false);
-      }
-        
-    };
-    
-    getUser();
-  }, []);
+  const order =
+    state?.order ||
+    (savedOrder ? JSON.parse(savedOrder) : null);
 
-  if (loading) {
-    return <p className="text-center p-4 m-2">Loading...</p> ;
-  }
+   if (!order) {
+      return (
+        <p className="text-center p-4 m-2">
+          No invoice data
+        </p>
+      );
+    }
 
-  if (!order) {
-    return <p className="text-center p-4 m-2">No invoice data</p> ;
-  }
-
-  if(!user) {
-    return (
-      <div className="flex flex-col items-center justify-center p-4 m-2 text-lg ">
-        <p className="text-center bg-amber-400 p-4 mb-4"> User not logged in  !! </p>
-        <p className="text-center bg-white rounded p-2 mt-4"> Login to continue</p> 
-      </div>
-    );
-  }
 
   const handleDownload = async () => {
     const element = pdfRef.current;
