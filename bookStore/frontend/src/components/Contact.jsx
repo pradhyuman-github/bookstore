@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 
 export default function Contact() {
   return (
-    <div className="min-h-screen flex flex-col bg-stone-100 overflow-x-hidden">
+    <div className="min-h-screen pt-18 flex flex-col bg-stone-100 overflow-x-hidden">
 
       <Header />
 

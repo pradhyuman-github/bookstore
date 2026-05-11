@@ -7,6 +7,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import ProductPage from './pages/ProductPage';
 import AllBooks from './pages/AllBooks';
+import Loader from './pages/Loader';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -29,6 +30,7 @@ import InvoicePage from './components/InvoicePDF';
 import API from './config/api';
 
 function App() {
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -39,39 +41,7 @@ function App() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
 
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
-
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-
-    if(!storedUser) return;
-    
-    const checkUser = async() => {
-      try {
-        const res = await fetch(`${API}/users/user-profile`,
-          { credentials: "include" }
-        );
-        
-        const data = await res.json();
-
-        if(data.success) {
-          setUser(data.user);
-        }
-        else {
-          localStorage.removeItem("user");
-        }
-      }
-      catch(err) {
-        console.log(err);
-      }
-    };
-
-    checkUser();
-  }, []);
-
+  // cart items add
   const addToCart = (product) => {
     console.log("ADDING PRODUCT:", product);
     
@@ -104,6 +74,63 @@ function App() {
     
     setIsCartOpen(true);
   };
+  
+  // cart items
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  // checks user
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+
+    if(!storedUser) return;
+    
+    const checkUser = async() => {
+      try {
+        const res = await fetch(`${API}/users/user-profile`,
+          { credentials: "include" }
+        );
+        
+        const data = await res.json();
+
+        if(data.success) {
+          setUser(data.user);
+        }
+        else {
+          localStorage.removeItem("user");
+        }
+      }
+      catch(err) {
+        console.log(err);
+      }
+    };
+
+    checkUser();
+  }, []);
+
+  // loader
+  useEffect(() => {
+    const wakeServer = async () => {
+        try {
+          // wake backend server
+          await fetch(`${API}`);
+        } 
+        catch (error) {
+          console.log("Server wake error:", error);
+        } 
+        finally {
+          setLoading(false);
+        }
+    };
+
+    wakeServer();
+
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div>

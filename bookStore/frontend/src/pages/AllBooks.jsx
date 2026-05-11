@@ -93,7 +93,7 @@ export default function AllBooks({ openCart }) {
     }, [category, sub, filters]);
 
     return (
-        <div className="w-full min-h-screen bg-zinc-100">
+        <div className="w-full min-h-screen pt-18 bg-zinc-100">
             <Header openCart={openCart} />
 
             {/* title */}

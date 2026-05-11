@@ -12,15 +12,8 @@ import { motion } from "motion/react";
 export default function Home({ openCart, addToCart, user }) {
     
     return (
-        <div className="relative z-0 w-full mx-auto overflow-x-hidden">
-            <motion.header 
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, ease: "easeOut" }}
-            >
-                <Header openCart={openCart} user={user} />
-            </motion.header>
-
+        <div className="relative z-0 w-full mx-auto pt-18 overflow-x-hidden">
+            <Header openCart={openCart} user={user} />
 
             <BookSlider />
             
@@ -39,6 +32,7 @@ export default function Home({ openCart, addToCart, user }) {
                     </p>
                 </div>
             </motion.div>
+
 
             <motion.div
                 initial={{ x: -100, opacity: 0 }}
