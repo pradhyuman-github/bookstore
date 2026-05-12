@@ -1,16 +1,12 @@
 import { useRef } from "react";
-import { useLocation } from "react-router";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import API from "../config/api";
 
-const InvoiceDetail = () => {
+const InvoiceDetail = ({invoice}) => {
   const pdfRef = useRef();
-  const { state } = useLocation();
 
-  const order =
-    state?.order ||
-    JSON.parse(localStorage.getItem("latestOrder"));
+  const order = invoice
 
   const user =
     JSON.parse(localStorage.getItem("user"));
