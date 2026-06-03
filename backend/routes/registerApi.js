@@ -94,8 +94,8 @@ router.post("/admin-login", loginLimiter, async(req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,      // true - prod
-      sameSite: "lax",  // none 
+      secure: true, 
+      sameSite: "none", 
       path: "/",
       maxAge: 24 * 60 * 60 * 1000
     });
@@ -151,8 +151,8 @@ router.post("/login", loginLimiter, async(req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
       path: "/",
       maxAge: 24 * 60 * 60 * 1000
     });
@@ -179,8 +179,8 @@ router.post("/login", loginLimiter, async(req, res) => {
 router.post("/logout", (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax", 
+    secure: true,
+    sameSite: "none", 
     path: "/"
   });
 

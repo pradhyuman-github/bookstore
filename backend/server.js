@@ -18,8 +18,7 @@ app.set("trust proxy", 1);
 
 // Middleware
 app.use(cors({
-  // origin: process.env.CLIENT_URL,
-  origin: "http://localhost:5173",
+  origin: process.env.CLIENT_URL,
   credentials: true
 }));
 
