@@ -1,5 +1,0 @@
-@import "tailwindcss";
-
-#email:invalid:not(:placeholder-shown) {
-  text-decoration: underline wavy red;
-}
