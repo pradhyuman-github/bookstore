@@ -75,7 +75,7 @@ export default function Footer() {
                 </div>
 
                 <div className="bg-zinc-800 text-zinc-300 p-4">
-                    <p className="text-center text-sm sm:text-base">@Books Store 2026 | All rights reserved</p>
+                    <p className="text-center text-sm sm:text-base">@Books Verse 2026 | All rights reserved</p>
                 </div>
 
             </footer>
