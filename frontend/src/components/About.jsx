@@ -56,7 +56,7 @@ export default function About() {
             Contact
           </h2>
           <p className="text-zinc-700">
-            <span className="font-semibold"> Email: </span> support@bookstore.com <br />
+            <span className="font-semibold"> Email: </span> support@bookverse.com <br />
             <span className="font-semibold"> Phone: </span> +91 9911991199
           </p>
         </div>
