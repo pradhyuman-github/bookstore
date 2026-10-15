@@ -10,15 +10,17 @@ export default function ViewMore() {
             transition={{duration: 1}}
             viewport={{once: true}}
         >
-            <p className="py-6 m-2 text-center text-xl sm:text-2xl wrap-break-word">
+            <p className="py-6 m-2 text-headingColor text-center text-xl sm:text-2xl wrap-break-word">
                 Browse top picks, trending titles, and hidden gems — all in one place.
             </p>
 
             <Link to="/books" onClick={ () => window.scrollTo(0,0) }>
                 <button
                     type="submit"
-                    className="px-6 py-2 rounded-3xl bg-zinc-800 text-amber-400 hover:bg-black cursor-pointer transition-all duration-300 shadow-lg hover:scale-110"
-                >View more books</button>
+                    className="px-6 py-2 rounded-3xl font-semibold bg-primaryColor hover:bg-primaryHoverColor cursor-pointer transition-all duration-300 shadow-lg hover:scale-110"
+                >
+                    View more books
+                </button>
             </Link>
 
         </motion.div>

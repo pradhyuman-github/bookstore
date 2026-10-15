@@ -7,13 +7,13 @@ export default function CheckoutOrder({ form }) {
     const navigate = useNavigate();
     const location = useLocation();
     const items = useMemo(() => {
-            const stored = JSON.parse(localStorage.getItem("checkoutItems"));
-    
-            return (
-                location.state?.items ||
-                (Array.isArray(stored) ? stored : [])
-            );
-        }, [location.state]);
+        const stored = JSON.parse(localStorage.getItem("checkoutItems"));
+
+        return (
+            location.state?.items ||
+            (Array.isArray(stored) ? stored : [])
+        );
+    }, [location.state]);
 
     const [coupon, setCoupon] = useState("");
     const [couponError, setCouponError] = useState("");
@@ -34,8 +34,8 @@ export default function CheckoutOrder({ form }) {
             const bookCategories = Array.isArray(item.category)
                 ? item.category
                 : item.category
-                ? [item.category]
-                : [];
+                    ? [item.category]
+                    : [];
 
             // CATEGORY MATCH
             let categoryMatch = true;
@@ -43,12 +43,12 @@ export default function CheckoutOrder({ form }) {
             if (coupon.applicableCategories && coupon.applicableCategories.length > 0) {
                 categoryMatch = coupon.applicableCategories.some(couponCat =>
                     bookCategories.some(bookCat => {
-                        if ( couponCat.name?.toLowerCase() !== bookCat.name?.toLowerCase() ) return false;
+                        if (couponCat.name?.toLowerCase() !== bookCat.name?.toLowerCase()) return false;
 
                         // no subcategory restriction
                         if (!couponCat.subCategory) return true;
 
-                        return ( couponCat.subCategory?.toLowerCase() === bookCat.subCategory?.toLowerCase() );
+                        return (couponCat.subCategory?.toLowerCase() === bookCat.subCategory?.toLowerCase());
                     })
                 );
             }
@@ -114,7 +114,7 @@ export default function CheckoutOrder({ form }) {
     let discountAmount = 0;
     const calculateCoupon = appliedCoupon;
 
-    if(calculateCoupon) {
+    if (calculateCoupon) {
         // percentage
         if (calculateCoupon.discountType === "percentage") {
             discountAmount = (subtotal * Number(calculateCoupon.discountValue)) / 100;
@@ -128,7 +128,7 @@ export default function CheckoutOrder({ form }) {
         }
 
         // fixed
-        else if ( calculateCoupon.discountType === "fixed" ) {
+        else if (calculateCoupon.discountType === "fixed") {
             discountAmount = Number(calculateCoupon.discountValue);
         }
 
@@ -181,7 +181,7 @@ export default function CheckoutOrder({ form }) {
                     freeItemsValue += freeQty * price;
                 }
             });
-            
+
             // optional maxFreeItems cap
             if (calculateCoupon.maxFreeItems) {
                 freeItemsValue = Math.min(
@@ -197,16 +197,16 @@ export default function CheckoutOrder({ form }) {
     const finalTotal = Math.max(0, subtotal - discountAmount);
 
     const user = JSON.parse(localStorage.getItem("user"));
-    
-    const handlePlaceOrder = async() => {
-        if(items.length === 0) return;
+
+    const handlePlaceOrder = async () => {
+        if (items.length === 0) return;
 
         if (!form.name || !form.address1 || !form.city) {
             setCouponError("Please fill shipping details");
             return;
         }
 
-        if(!user || !user.id) {
+        if (!user || !user.id) {
             setCouponError("User not logged in");
             return;
         }
@@ -254,7 +254,7 @@ export default function CheckoutOrder({ form }) {
 
             const data = await res.json();
 
-            if(!res.ok) {
+            if (!res.ok) {
                 console.log(data.message);
             }
 
@@ -264,22 +264,22 @@ export default function CheckoutOrder({ form }) {
 
             localStorage.removeItem("checkoutItems");
 
-            navigate("/invoice", { state: {order: data.order} });
+            navigate("/invoice", { state: { order: data.order } });
         }
-        catch(err) {
+        catch (err) {
             console.log(err.message);
         }
     }
 
     useEffect(() => {
-        const fetchCouponCode = async() => {
+        const fetchCouponCode = async () => {
             try {
                 const res = await fetch(`${API}/coupon/view-coupon`);
                 const data = await res.json();
 
                 setCouponCode(data.data || []);
             }
-            catch(err) {
+            catch (err) {
                 console.log("Coupon fetch error: ", err);
             }
         };
@@ -287,116 +287,120 @@ export default function CheckoutOrder({ form }) {
         fetchCouponCode();
     }, []);
 
-    return(
+    return (
         <div>
             {/* RIGHT → ITEMS */}
-                <div className="bg-white border-2 border-stone-300 p-6 rounded-xl shadow-xl">
-                    <h2 className="text-xl text-zinc-800 font-bold mb-4">Order Summary</h2>
+            <div className="bg-surfaceColor border-2 border-borderColor p-6 rounded-xl shadow-xl">
+                <h2 className="text-xl text-primaryColor font-bold mb-4">Order Summary</h2>
 
-                    {items.length > 0 ? (
-                        items.map((item, index) => (
-                            <div key={index} className="bg-zinc-200 rounded-md border-2 border-stone-400 mb-2 p-2">
-                                <p className="font-semibold">{item.bookName}</p>
-                                <p>Price: ₹{item.bookPrice || item.price}</p>
-                                <p>Qty: {item.quantity || 1}</p>
+                {items.length > 0 ? (
+                    items.map((item, index) => (
+                        <div>
+                            <h3 className="text-headingColor font-semibold mb-2"> Book Detail </h3>
+
+                            <div key={index} className="bg-cardColor rounded-md border-2 border-borderColor mb-2 p-2">
+                                <p className="font-semibold text-textColor"> {item.bookName} </p>
+                                <p className="text-textSecondaryColor"> Price: ₹{item.bookPrice || item.price} </p>
+                                <p className="text-textSecondaryColor"> Qty: {item.quantity || 1} </p>
                             </div>
-                        ))
-                    ) : (
-                        <p>No items</p>
-                    )}
-
-                    {/* COUPON SECTION */}
-                    <div className="mt-4">
-                        <h3 className="text-zinc-800 font-semibold mb-2">Apply Coupon</h3>
-
-                        <div className="flex flex-col sm:flex-row gap-2">
-                            <input
-                                type="text"
-                                value={coupon}
-                                onChange={(e) => setCoupon(e.target.value.toUpperCase())}
-                                placeholder="Enter coupon code"
-                                className="flex-1 p-2 border border-amber-300 outline-none focus:ring-1 focus:ring-amber-400 rounded"
-                            />
-                            <button
-                                onClick={applyCoupon}
-                                className="bg-zinc-700 hover:bg-black text-amber-400 px-4 py-2 rounded"
-                            >
-                                Apply
-                            </button>
                         </div>
+                    ))
+                ) : (
+                    <p className="text-textMutedColor">No items</p>
+                )}
 
-                        <div className="mt-4">
-                            <h4 className="text-zinc-800 font-semibold mb-2">Available Coupons</h4>
+                {/* COUPON SECTION */}
+                <div className="mt-4">
+                    <h3 className="text-headingColor font-semibold mb-2">Apply Coupon</h3>
 
-                            <div className="flex flex-wrap gap-2">
-                                {couponCode
-                                    .filter(c => c.isActive && new Date(c.expiryDate) > new Date())
-                                    .map(c => (
-                                        <div
-                                            key={c._id}
-                                            onClick={() => setCoupon(c.code)}
-                                            className="cursor-pointer border-2 border-stone-400 px-6 py-2 rounded bg-zinc-200 hover:bg-zinc-300"
-                                        >
-                                            <p className="font-bold text-sm">{c.code}</p>
-                                            
-                                            <p className="text-xs text-gray-600">
-                                                {c.discountType === "percentage"
-                                                    ? `${c.discountValue}% OFF`
-                                                    : c.discountType === "bxgy"
+                    <div className="flex flex-col sm:flex-row gap-2">
+                        <input
+                            type="text"
+                            value={coupon}
+                            onChange={(e) => setCoupon(e.target.value.toUpperCase())}
+                            placeholder="Enter coupon code"
+                            className="flex-1 p-2 bg-cardColor text-textSecondaryColor border border-borderColor outline-none focus:ring-1 focus:ring-primaryDarkColor focus:bg-cardHoverColor rounded"
+                        />
+                        <button
+                            onClick={applyCoupon}
+                            className="bg-starColor hover:bg-starColor/90 text-black font-medium px-4 py-2 rounded"
+                        >
+                            Apply
+                        </button>
+                    </div>
+
+                    <div className="mt-4">
+                        <h4 className="text-headingColor font-semibold mb-2">Available Coupons</h4>
+
+                        <div className="flex flex-wrap gap-2">
+                            {couponCode
+                                .filter(c => c.isActive && new Date(c.expiryDate) > new Date())
+                                .map(c => (
+                                    <div
+                                        key={c._id}
+                                        onClick={() => setCoupon(c.code)}
+                                        className="cursor-pointer border-2 border-borderColor px-6 py-2 rounded bg-surfaceColor hover:bg-cardHoverColor hover:border-primaryDarkColor"
+                                    >
+                                        <p className="font-bold text-sm text-starColor">{c.code}</p>
+
+                                        <p className="text-xs text-textMutedColor">
+                                            {c.discountType === "percentage"
+                                                ? `${c.discountValue}% OFF`
+                                                : c.discountType === "bxgy"
                                                     ? `Buy ${c.buyQuantity} Get ${c.getQuantity} Free`
                                                     : `₹${c.discountValue} OFF`
-                                                }
-                                            </p>
+                                            }
+                                        </p>
 
-                                            {c.applicableCategories?.length > 0 && (
-                                                <p className="text-[10px] text-gray-500 mt-1"> Applies to: {" "}
-                                                    {c.applicableCategories.map(sec => 
-                                                        sec.subCategory ? `${sec.name} → ${sec.subCategory}` : sec.name
-                                                        ).join(", ")
-                                                    } </p>
-                                            )}
-                                        </div>
-                                    ))
-                                }
-                            </div>
+                                        {c.applicableCategories?.length > 0 && (
+                                            <p className="text-[10px] text-gray-500 mt-1"> Applies to: {" "}
+                                                {c.applicableCategories.map(sec =>
+                                                    sec.subCategory ? `${sec.name} → ${sec.subCategory}` : sec.name
+                                                ).join(", ")
+                                                } </p>
+                                        )}
+                                    </div>
+                                ))
+                            }
                         </div>
+                    </div>
 
-                        {couponError && (
-                            <p className="text-red-500 text-sm mt-1">{couponError}</p>
-                        )}
+                    {couponError && (
+                        <p className="text-red-500 text-sm mt-1">{couponError}</p>
+                    )}
 
-                        {appliedCoupon && (
-                            <p className="text-green-600 text-sm">
-                                {appliedCoupon.discountType === "percentage"
-                                    ? `${appliedCoupon.discountValue}% OFF applied`
-                                    : appliedCoupon.discountType === "bxgy"
+                    {appliedCoupon && (
+                        <p className="text-green-600 text-sm">
+                            {appliedCoupon.discountType === "percentage"
+                                ? `${appliedCoupon.discountValue}% OFF applied`
+                                : appliedCoupon.discountType === "bxgy"
                                     ? `Buy ${appliedCoupon.buyQuantity} Get ${appliedCoupon.getQuantity} applied`
                                     : `₹${appliedCoupon.discountValue} OFF applied`}
-                            </p>
-                        )}
-                    </div>
-
-                    {/* Total */}
-                    <div className="mt-4 font-bold space-y-1">
-                        <p className="text-zinc-800">Subtotal: ₹{subtotal}</p>
-
-                        {appliedCoupon && discountAmount > 0 && (
-                            <p className="text-emerald-600">
-                                Discount: -₹{discountAmount}
-                            </p>
-                        )}
-
-                        <p className="text-lg text-zinc-800">
-                            Total: ₹{finalTotal}
                         </p>
-                    </div>
-
-                    <button 
-                        onClick={handlePlaceOrder}
-                        className="w-full mt-4 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-2 rounded">
-                        Place Order
-                    </button>
+                    )}
                 </div>
+
+                {/* Total */}
+                <div className="mt-4 font-bold space-y-1">
+                    <p className="text-textSecondaryColor">Subtotal: ₹{subtotal}</p>
+
+                    {appliedCoupon && discountAmount > 0 && (
+                        <p className="text-green-600">
+                            Discount: -₹{discountAmount}
+                        </p>
+                    )}
+
+                    <p className="text-lg text-textSecondaryColor">
+                        Total: ₹{finalTotal}
+                    </p>
+                </div>
+
+                <button
+                    onClick={handlePlaceOrder}
+                    className="w-full mt-4 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-2 rounded">
+                    Place Order
+                </button>
+            </div>
         </div>
     );
 }

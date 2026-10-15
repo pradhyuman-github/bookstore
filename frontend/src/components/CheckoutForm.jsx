@@ -37,26 +37,26 @@ export default function CheckoutForm({ form, setForm }) {
             {/* LEFT → FORM */}
             <form
                 onClick={ (e) => e.preventDefault() } 
-                className="bg-white border-2 border-stone-300 p-6 rounded-xl shadow-xl space-y-4" >
-                <h2 className="text-xl text-zinc-800 font-bold">Shipping Details</h2>
+                className="bg-surfaceColor border-2 border-borderColor p-6 rounded-xl shadow-xl space-y-4" >
+                <h2 className="text-lg sm:text-xl text-primaryColor font-bold">Shipping Details</h2>
 
                 <input name="name" value={form.name} onChange={handleChange}
-                    placeholder="Name" className="w-full p-2 border border-amber-300 outline-none focus:ring-1 focus:ring-amber-400 rounded" />
+                    placeholder="Name" className="w-full p-2 bg-cardColor text-textColor border border-borderColor outline-none focus:ring-1 focus:ring-primaryDarkColor focus:bg-cardHoverColor rounded" />
 
                 <input name="email" value={form.email} onChange={handleChange}
-                    placeholder="Email" className="w-full p-2 border border-amber-300 outline-none focus:ring-1 focus:ring-amber-400 rounded" />
+                    placeholder="Email" className="w-full p-2 bg-cardColor text-textColor border border-borderColor outline-none focus:ring-1 focus:ring-primaryDarkColor focus:bg-cardHoverColor rounded" />
 
                 <input name="contact" value={form.contact} onChange={handleChange}
-                    placeholder="Contact Number" className="w-full p-2 border border-amber-300 outline-none focus:ring-1 focus:ring-amber-400 rounded" />
+                    placeholder="Contact Number" className="w-full p-2 bg-cardColor text-textColor border border-borderColor outline-none focus:ring-1 focus:ring-primaryDarkColor focus:bg-cardHoverColor rounded" />
 
                 <input name="address1" value={form.address1} onChange={handleChange}
-                    placeholder="Address Line 1" className="w-full p-2 border border-amber-300 outline-none focus:ring-1 focus:ring-amber-400 rounded" />
+                    placeholder="Address Line 1" className="w-full p-2 bg-cardColor text-textColor border border-borderColor outline-none focus:ring-1 focus:ring-primaryDarkColor focus:bg-cardHoverColor rounded" />
 
                 <input name="address2" value={form.address2} onChange={handleChange}
-                    placeholder="Address Line 2" className="w-full p-2 border border-amber-300 outline-none focus:ring-1 focus:ring-amber-400 rounded" />
+                    placeholder="Address Line 2" className="w-full p-2 bg-cardColor text-textColor border border-borderColor outline-none focus:ring-1 focus:ring-primaryDarkColor focus:bg-cardHoverColor rounded" />
 
                 <input name="pincode" value={form.pincode} onChange={handleChange}
-                    placeholder="Pin Code" className="w-full p-2 border border-amber-300 outline-none focus:ring-1 focus:ring-amber-400 rounded" />
+                    placeholder="Pin Code" className="w-full p-2 bg-cardColor text-textColor border border-borderColor outline-none focus:ring-1 focus:ring-primaryDarkColor focus:bg-cardHoverColor rounded" />
 
 
                 <select name="country" 
@@ -69,11 +69,14 @@ export default function CheckoutForm({ form, setForm }) {
                             city: ""
                         });
                     }}
-                    className="w-full p-2 border border-amber-300 outline-none focus:ring-1 focus:ring-amber-400 rounded"
+                    className="w-full p-2 bg-cardColor text-textColor border border-borderColor outline-none focus:ring-1 focus:ring-primaryDarkColor focus:bg-cardHoverColor rounded"
                     >
-                        <option value=""> Select Country </option>
+                        <option className="bg-surfaceColor" value=""> 
+                            Select Country 
+                        </option>
+                        
                         {countries.map((c) => (
-                            <option key={c.isoCode} value={c.isoCode}> 
+                            <option className="bg-surfaceColor" key={c.isoCode} value={c.isoCode}> 
                                 {c.name} 
                             </option>
                         ))}
@@ -90,11 +93,14 @@ export default function CheckoutForm({ form, setForm }) {
                         });
                     }}
                     disabled={!form.country}
-                    className="w-full p-2 border border-amber-300 outline-none focus:ring-1 focus:ring-amber-400 rounded"
+                    className="w-full p-2 bg-cardColor text-textColor border border-borderColor outline-none focus:ring-1 focus:ring-primaryDarkColor focus:bg-cardHoverColor rounded"
                 >
-                    <option value=""> Select State </option>
+                    <option className="bg-surfaceColor" value=""> 
+                        Select State 
+                    </option>
+
                     {states.map((s) => (
-                        <option key={s.isoCode} value={s.isoCode}>
+                        <option className="bg-surfaceColor" key={s.isoCode} value={s.isoCode}>
                             {s.name}
                         </option>
                     ))}
@@ -105,15 +111,18 @@ export default function CheckoutForm({ form, setForm }) {
                     value={form.city}
                     onChange={handleChange}
                     disabled={!form.state}
-                    className="w-full p-2 border border-amber-300 outline-none focus:ring-1 focus:ring-amber-400 rounded"
+                    className="w-full p-2 bg-cardColor text-textColor border border-borderColor outline-none focus:ring-1 focus:ring-primaryDarkColor focus:bg-cardHoverColor rounded"
                 >
-                    <option value=""> Select City </option>
+                    <option className="bg-surfaceColor" value=""> 
+                        Select City 
+                    </option>
+
                     {cities.length > 0  ? ( cities.map((c) => (
-                        <option key={c.name} value={c.name}>
+                        <option className="bg-surfaceColor" key={c.name} value={c.name}>
                             {c.name}
                         </option>
                     )) ) : (
-                        <option disabled>No cities available</option>
+                        <option className="text-textColor" disabled>No cities available</option>
                     )}
                 </select>
 

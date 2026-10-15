@@ -1,5 +1,31 @@
 @import "tailwindcss";
 
+/* 
+Bricolage Grotesque
+Hanken Grotesk
+JetBrains Mono
+*/
+
+@theme {
+  --color-mainBg: #090D12;
+  --color-surfaceColor: #0E121A;
+  --color-cardColor: #11151D;
+  --color-cardHoverColor: #151B24;
+
+  --color-borderColor: #222A35;
+
+  --color-headingColor: #FAECD6;
+  --color-textColor: #FBF9F6;
+  --color-textSecondaryColor: #D8D5D0;
+  --color-textMutedColor: #92969F;
+
+  --color-primaryColor: #FBA671;
+  --color-primaryDarkColor: #CD6D3E;
+  --color-primaryHoverColor: #F89853;
+
+  --color-starColor: #F7C581;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -9,7 +35,7 @@ html {
 .bookSwiper .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
-  background: #a1a1aa; /* zinc-400 */
+  background: #92969F;
   opacity: 1;
   transition: all 0.3s ease;
 }
@@ -18,17 +44,17 @@ html {
 .bookSwiper .swiper-pagination-bullet-active {
   width: 28px;
   border-radius: 9999px;
-  background: #f59e0b; /* amber-500 */
+  background: #F7C581; 
 }
 
 /* NAVIGATION BUTTONS */
 .bookSwiper .swiper-button-next,
 .bookSwiper .swiper-button-prev {
-  width: 32px !important;
-  height: 46px !important;
+  width: 28px !important;
+  height: 40px !important;
   padding: 8px;
   border-radius: 9px !important;
-  color: black !important;
+  color: white !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
   transition: all 0.3s ease !important;
 }
@@ -36,48 +62,12 @@ html {
 /* HOVER EFFECT */
 .bookSwiper .swiper-button-next:hover,
 .bookSwiper .swiper-button-prev:hover {
-  background: #f59e0b !important;
-}
-
-/* recommend section swiper style */
-/* DOTS */
-.recommendSwiper .swiper-pagination-bullet {
-  width: 10px;
-  height: 10px;
-  background: #a1a1aa;
-  opacity: 1;
-  transition: all 0.3s ease;
-}
-
-/* ACTIVE DOT */
-.recommendSwiper .swiper-pagination-bullet-active {
-  width: 28px;
-  border-radius: 9999px;
-  background: #c084fc;
-}
-
-/* NAVIGATION BUTTONS */
-.recommendSwiper .swiper-button-next,
-.recommendSwiper .swiper-button-prev {
-  width: 32px !important;
-  height: 46px !important;
-  padding: 8px;
-  border-radius: 9px !important;
-  color: black !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-  transition: all 0.3s ease !important;
-}
-
-.recommendSwiper .swiper-button-next:hover,
-.recommendSwiper .swiper-button-prev:hover {
-  background: #c084fc !important;
+  background: #F7C581 !important;
 }
 
 @media (max-width: 640px) {
   .bookSwiper .swiper-button-next,
-  .bookSwiper .swiper-button-prev,
-  .recommendSwiper .swiper-button-next,
-  .recommendSwiper .swiper-button-prev {
+  .bookSwiper .swiper-button-prev {
     display: none;
   }
 }
