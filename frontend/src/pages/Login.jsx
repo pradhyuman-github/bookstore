@@ -59,22 +59,26 @@ export default function Login({ setUser }) {
             
             return () => clearTimeout(timer);
         }
-    }, [message]);
+    }, [message]); 
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-blue-100 px-4">
+        <div 
+            className="min-h-screen flex items-center justify-center px-4 bg-cover bg-no-repeat bg-position-[70%_center] md:bg-center"
+            style={{ backgroundImage: "url('bgLogin.png')"}}
+        >
+            <div className="absolute inset-0 bg-[#020912]/30"></div>
       
             <form 
                 onSubmit={handleSubmit}
-                className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg space-y-5">
+                className="relative z-10 w-full max-w-md bg-transparent backdrop-blur-xs p-8 rounded-2xl shadow-lg space-y-5 border border-primaryDarkColor">
         
-            <h2 className="text-3xl font-bold text-center text-gray-800">
+            <h2 className="text-3xl font-bold text-center text-primaryColor">
                 Login
             </h2>
 
             {/* Username */}
             <div className="flex flex-col">
-                <label htmlFor="email" className="mb-1 text-gray-700 font-medium">
+                <label htmlFor="email" className="mb-1 text-textSecondaryColor font-semibold">
                     Email
                 </label>
                 <input
@@ -84,13 +88,13 @@ export default function Login({ setUser }) {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     placeholder="example@gmail.com"
-                    className={"bg-gray-100 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"}
+                    className={"bg-surfaceColor p-2 rounded-md text-textColor border border-borderColor focus:outline-none focus:ring-1 focus:ring-primaryDarkColor"}
                 />
             </div>
 
             {/* Password */}
             <div className="flex flex-col">
-                <label htmlFor="password" className="mb-1 text-gray-700 font-medium">
+                <label htmlFor="password" className="mb-1 text-textSecondaryColor font-semibold">
                     Password
                 </label>
                 <input
@@ -100,21 +104,23 @@ export default function Login({ setUser }) {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     placeholder="Enter your password"
-                    className="bg-gray-100 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="bg-surfaceColor p-2 rounded-md text-textColor border border-borderColor focus:outline-none focus:ring-1 focus:ring-primaryDarkColor"
                 />
             </div>
 
             {/* Button */}
             <button
                 type="submit"
-                className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
+                className="w-full py-2 bg-primaryColor text-black font-semibold rounded-lg hover:bg-primaryHoverColor cursor-pointer transition duration-200"
             >
                 Login
             </button>
 
             {message && (
-                <p className={`text-center text-sm p-2 rounded ${
-                    type === "success" ? "text-green-700 bg-green-100" : "text-red-700 bg-red-100"
+                <p className={`flex items-center justify-center gap-2 text-sm p-2 rounded 
+                    ${ type === "success" 
+                        ? "ri-shield-check-fill text-green-500 bg-green-100/15 backdrop-blur-sm border" 
+                        : "ri-close-circle-fill text-red-500 bg-red-100/15 backdrop-blur-sm border"
                     }`} 
                 > 
                     {message} 
@@ -123,11 +129,11 @@ export default function Login({ setUser }) {
 
             {/* Links */}
             <div className="flex justify-between text-sm">
-                <a href="#" className="text-blue-600 hover:underline">
+                <a href="#" className="text-starColor hover:underline">
                     Forgot Password?
                 </a>
                 
-                <Link to="/register" className="text-blue-600 hover:underline">
+                <Link to="/register" className="text-starColor hover:underline">
                     Create Account
                 </Link>
             </div>

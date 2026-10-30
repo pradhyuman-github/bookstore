@@ -7,23 +7,23 @@ JetBrains Mono
 */
 
 @theme {
-  --color-mainBg: #090D12;
-  --color-surfaceColor: #0E121A;
-  --color-cardColor: #11151D;
-  --color-cardHoverColor: #151B24;
+  --color-mainBg: #090d12;
+  --color-surfaceColor: #0e121a;
+  --color-cardColor: #11151d;
+  --color-cardHoverColor: #151b24;
 
-  --color-borderColor: #222A35;
+  --color-borderColor: #222a35;
 
-  --color-headingColor: #FAECD6;
-  --color-textColor: #FBF9F6;
-  --color-textSecondaryColor: #D8D5D0;
-  --color-textMutedColor: #92969F;
+  --color-headingColor: #faecd6;
+  --color-textColor: #fbf9f6;
+  --color-textSecondaryColor: #d8d5d0;
+  --color-textMutedColor: #92969f;
 
-  --color-primaryColor: #FBA671;
-  --color-primaryDarkColor: #CD6D3E;
-  --color-primaryHoverColor: #F89853;
+  --color-primaryColor: #fba671;
+  --color-primaryDarkColor: #cd6d3e;
+  --color-primaryHoverColor: #f89853;
 
-  --color-starColor: #F7C581;
+  --color-starColor: #f7c581;
 }
 
 html {
@@ -35,7 +35,7 @@ html {
 .bookSwiper .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
-  background: #92969F;
+  background: #92969f;
   opacity: 1;
   transition: all 0.3s ease;
 }
@@ -44,7 +44,7 @@ html {
 .bookSwiper .swiper-pagination-bullet-active {
   width: 28px;
   border-radius: 9999px;
-  background: #F7C581; 
+  background: #f7c581;
 }
 
 /* NAVIGATION BUTTONS */
@@ -62,7 +62,7 @@ html {
 /* HOVER EFFECT */
 .bookSwiper .swiper-button-next:hover,
 .bookSwiper .swiper-button-prev:hover {
-  background: #F7C581 !important;
+  background: #f7c581 !important;
 }
 
 @media (max-width: 640px) {
@@ -129,4 +129,17 @@ html {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+}
+
+/* Keep autofilled inputs consistent with theme */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-textColor) !important;
+  -webkit-box-shadow: 0 0 0 1000px var(--color-surfaceColor) inset !important;
+  box-shadow: 0 0 0 1000px var(--color-surfaceColor) inset !important;
+  caret-color: var(--color-textColor);
 }

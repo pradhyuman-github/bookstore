@@ -28,12 +28,12 @@ export default function Home({ openCart, addToCart, user }) {
                         Discover Your Next <span className="text-primaryColor"> Great Read </span>
                     </p>
 
-                    <p className="text-textColor text-base sm:text-lg md:text-xl max-w-4xl py-6 wrap-break-word">
+                    <p className="text-textColor text-base sm:text-lg md:text-xl max-w-4xl py-3 sm:py-6 wrap-break-word">
                         From timeless classics to modern bestsellers  <br />
                         - a curated collection of books that inspire, educate, and entertain.
                     </p>
 
-                    <div className="sm:min-w-lg flex items-center justify-between mt-2">
+                    <div className="w-full md:w-sm lg:w-1/3 flex flex-col gap-1 sm:flex-row items-center justify-between mt-2">
                         <p className="text-starColor">
                             <span className="ri-star-s-fill text-sm sm:text-xl"></span>
                             <span className="ri-star-s-fill text-sm sm:text-xl"></span>

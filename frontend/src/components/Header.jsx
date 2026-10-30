@@ -16,10 +16,9 @@ export default function Header({ openCart, user }) {
             >
                 {/* desktop */}
                 <nav className="flex items-center justify-between px-4 sm:px-6 lg:px-10 py-3">
-                    <div className="p-2">
-                        <p className="ri-book-shelf-line text-2xl sm:text-3xl text-primaryColor">
-                            <span className="text-headingColor font-bold"> BookVerse </span>
-                        </p>
+                    <div className="p-2 flex items-start">
+                        <img src="/icon.png" alt="icon" className="w-15 h-10 rounded-full object-cover"/>
+                        <p className="text-headingColor font-bold text-2xl sm:text-3xl"> Book<span className="text-primaryColor">Verse</span> </p>
                     </div>
 
                     <div className="hidden md:flex items-center gap-7 lg:gap-8">

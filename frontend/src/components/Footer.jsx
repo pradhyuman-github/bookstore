@@ -3,7 +3,7 @@ export default function Footer() {
         <div>
             <footer
                 className="relative bg-[#090D12] bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: "url('footerBg.png')" }}
+                style={{ backgroundImage: "url('bgFooter.png')" }}
             >
 
                 {/* Dark overlay */}
