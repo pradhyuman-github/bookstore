@@ -15,7 +15,7 @@ export default function Offer() {
           (c) => c.isActive && new Date(c.expiryDate) > new Date()
         );
 
-        const latestOffers = validOffers.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt) )[0];
+        const latestOffers = validOffers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
 
         setOffers(latestOffers ? [latestOffers] : []);
       } catch (err) {
@@ -27,40 +27,40 @@ export default function Offer() {
   }, []);
 
   return (
-    <div className="w-full my-10 sm:my-14 lg:my-16 px-4 sm:px-6 lg:px-8">
-      <div className="w-full bg-linear-to-r from-amber-300 via-yellow-300 to-orange-400 text-zinc-800 rounded-xl flex flex-col lg:flex-row justify-between items-center gap-8 p-6 sm:p-8 lg:p-10">
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-          <h2 className="text-3xl sm:text-4xl font-semibold mb-4"> Latest Offer </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-700">Grab the deal before it's gone!</p>
+    <div className="w-full flex items-center justify-center my-10 sm:my-8 lg:my-16 px-4 sm:px-6 lg:px-8">
+      <div className="w-full md:max-w-xl lg:max-w-5xl bg-none md:bg-linear-to-br from-primaryColor to-primaryDarkColor text-black rounded-xl md:border border-borderColor flex flex-col lg:flex-row justify-between items-center gap-2 p-4 lg:p-10">
+        <div className="hidden md:flex flex-col items-center lg:items-start text-center lg:text-left">
+          <h2 className="text-3xl lg:text-4xl font-semibold sm:mb-1 lg:mb-4"> Latest Offer </h2>
+          <p className="sm:text-base lg:text-xl">Grab the deal before it's gone!</p>
         </div>
 
 
         {offers.length === 0 ? (
-          <p className="text-gray-600 text-base sm:text-lg">No offers available</p>
+          <p className="text-textColor text-base sm:text-lg p-4 bg-primaryColor md:bg-transparent rounded">New Offers coming soon...</p>
         ) : (
-          <div className="w-full flex flex-col items-center">
+          <div className="lg:w-full flex flex-col items-center">
             {offers.map((offer) => (
               <div
                 key={offer._id}
-                className="w-full max-w-xs sm:max-w-md md:max-w-2xl border-2 border-amber-500 rounded-xl p-4 sm:p-6 bg-linear-to-br from-white to-yellow-400 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                className="w-full sm:max-w-md md:max-w-xl border-2 border-primaryDarkColor md:border-borderColor rounded-xl p-4 sm:p-6 bg-cardColor shadow-sm hover:bg-cardHoverColor hover:border-starColor hover:scale-105 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
               >
                 {/* TOP: Coupon Code */}
                 <div>
                   <h3 className="text-lg sm:text-xl font-bold text-emerald-600 tracking-wide mb-2 wrap-break-word">
-                    {offer.code}
+                    <span className="text-headingColor"> CODE </span> {offer.code}
                   </h3>
 
                   {/* Discount Info */}
-                  <p className="text-base sm:text-lg font-medium text-zinc-800">
+                  <p className="text-base sm:text-lg font-medium text-textColor">
                     {offer.discountType === "percentage"
                       ? `${offer.discountValue}% OFF`
                       : offer.discountType === "bxgy"
-                      ? `Buy ${offer.buyQuantity} Get ${offer.getQuantity}`
-                      : `₹${offer.discountValue} OFF`}
+                        ? `Buy ${offer.buyQuantity} Get ${offer.getQuantity}`
+                        : `₹${offer.discountValue} OFF`}
                   </p>
 
                   {/* Category / Genre */}
-                  <div className="mt-3 text-sm sm:text-base text-stone-500 wrap-break-word">
+                  <div className="mt-3 text-sm sm:text-base text-textColor wrap-break-word">
                     {offer.applicableCategories?.length > 0 ? (
                       <p>
                         Applies to:{" "}
@@ -72,17 +72,18 @@ export default function Offer() {
                           )
                           .join(", ")}
                       </p>
-                    ) : offer.applicableGenre ? (
-                      <p>Genre: {offer.applicableGenre}</p>
+                    ) : offer.description ? (
+                      <p> {offer.description} </p>
                     ) : (
-                      <p>All items</p>
-                    )}
+                      <p>Applies on all items</p>
+                    )
+                    }
                   </div>
                 </div>
 
                 {/* BOTTOM: Expiry */}
-                <div className="text-xs sm:text-sm text-rose-500 font-medium mt-4">
-                  Expires:{" "}
+                <div className="text-xs sm:text-sm text-red-500 font-medium mt-4">
+                  Ends On:{" "}
                   {new Date(offer.expiryDate).toLocaleDateString("en-GB")}
                 </div>
               </div>
@@ -90,7 +91,7 @@ export default function Offer() {
           </div>
         )}
 
-      </div>      
+      </div>
 
     </div>
   );

@@ -19,10 +19,10 @@ export default function Checkout() {
     });
 
     return (
-        <div className="min-h-screen bg-stone-100 p-6">
+        <div className="min-h-screen bg-mainBg p-6">
                 <button
                     onClick={() => navigate(-1)}
-                    className="mb-4 bg-zinc-700 text-white hover:bg-zinc-800 px-3 py-1 rounded"
+                    className="mb-4 border border-borderColor bg-cardColor text-textColor hover:bg-cardHoverColor px-3 py-1 rounded"
                 >
                     ← Back
                 </button>

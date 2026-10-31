@@ -4,7 +4,7 @@ import API from "../config/api";
 
 export default function Register() {
     const [message, setMessage] = useState("");
-    const [type, setType] = useState(""); 
+    const [type, setType] = useState("");
 
     const [formData, setFormData] = useState({
         username: "",
@@ -21,84 +21,88 @@ export default function Register() {
         });
     };
 
-    
-const handleSubmitBtn = async (e) => {
-    e.preventDefault();
 
-    // password check
-    if (formData.createPassword !== formData.confirmPassword) {
-        alert("Password and Confirm Password do not match!");
-        return;
-    }
+    const handleSubmitBtn = async (e) => {
+        e.preventDefault();
 
-    try {
-        const res = await fetch(`${API}/users/register`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify(formData),
-        });
-
-        const data = await res.json();
-        console.log(data);
-
-        if(res.ok) {
-            setMessage("Register successful");
-            setType("success");
-
-            const userToStore = {
-                _id: data.data._id,
-                username: data.data.username,
-                contact: data.data.contact,
-                email: data.data.email,
-            };
-            localStorage.setItem("user", JSON.stringify(userToStore));
-
-            setTimeout(() => {
-                window.location.href = "/";
-            }, 2000);
-        }
-        else {
-            setMessage("Register failed");
-            setType("error");
+        // password check
+        if (formData.createPassword !== formData.confirmPassword) {
+            alert("Password and Confirm Password do not match!");
+            return;
         }
 
-    } 
-    catch (err) {
-        setMessage("Server error");
-        console.log(err);
-    }
-};
+        try {
+            const res = await fetch(`${API}/users/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify(formData),
+            });
+
+            const data = await res.json();
+            console.log(data);
+
+            if (res.ok) {
+                setMessage("Register successful");
+                setType("success");
+
+                const userToStore = {
+                    _id: data.data._id,
+                    username: data.data.username,
+                    contact: data.data.contact,
+                    email: data.data.email,
+                };
+                localStorage.setItem("user", JSON.stringify(userToStore));
+
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 2000);
+            }
+            else {
+                setMessage("Register failed");
+                setType("error");
+            }
+
+        }
+        catch (err) {
+            setMessage("Server error");
+            console.log(err);
+        }
+    };
 
     useEffect(() => {
-        if(message) {
+        if (message) {
             const timer = setTimeout(() => {
                 setMessage("");
                 setType("");
             }, 3000);
-            
+
             return () => clearTimeout(timer);
         }
     }, [message]);
-    
+
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-purple-100 px-4">
-      
-            <form 
-                className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg space-y-5"
+        <div
+            className="min-h-screen flex items-center justify-center px-5 py-6 sm:py-0 bg-cover bg-no-repeat bg-position-[25%_center] md:bg-center"
+            style={{ backgroundImage: "url('bgRegister.png')" }}
+        >
+            <div className="absolute inset-0 bg-[#020912]/40"></div>
+
+            <form
+                className="relative z-10 w-full max-w-md bg-transparent backdrop-blur-xs p-8 rounded-2xl shadow-lg space-y-5 border border-primaryDarkColor"
                 onSubmit={handleSubmitBtn}
             >
-        
-                <h2 className="text-3xl font-bold text-center text-gray-800">
+
+                <h2 className="text-3xl font-bold text-center text-primaryColor">
                     Register
                 </h2>
 
                 {/* Name */}
                 <div className="flex flex-col">
-                    <label htmlFor="username" className="mb-1 font-medium text-gray-700">
+                    <label htmlFor="username" className="mb-1 font-medium text-textMutedColor">
                         Username
                     </label>
                     <input
@@ -108,13 +112,13 @@ const handleSubmitBtn = async (e) => {
                         placeholder="Enter name"
                         required
                         onChange={handleFormChange}
-                        className="w-full bg-gray-100 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        className="w-full bg-surfaceColor p-2 rounded-md text-textColor border border-borderColor focus:outline-none focus:ring-1 focus:ring-primaryDarkColor"
                     />
                 </div>
 
                 {/* Contact */}
                 <div className="flex flex-col">
-                    <label htmlFor="contactNo" className="mb-1 font-medium text-gray-700">
+                    <label htmlFor="contactNo" className="mb-1 font-medium text-textMutedColor">
                         Contact Number
                     </label>
                     <input
@@ -126,13 +130,13 @@ const handleSubmitBtn = async (e) => {
                         placeholder="Enter 10-digit number"
                         required
                         onChange={handleFormChange}
-                        className="w-full bg-gray-100 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        className="w-full bg-surfaceColor p-2 rounded-md text-textColor border border-borderColor focus:outline-none focus:ring-1 focus:ring-primaryDarkColor"
                     />
                 </div>
 
                 {/* Email */}
                 <div className="flex flex-col">
-                    <label htmlFor="email" className="mb-1 font-medium text-gray-700">
+                    <label htmlFor="email" className="mb-1 font-medium text-textMutedColor">
                         Email
                     </label>
                     <input
@@ -142,13 +146,13 @@ const handleSubmitBtn = async (e) => {
                         placeholder="example@gmail.com"
                         required
                         onChange={handleFormChange}
-                        className="w-full bg-gray-100 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        className="w-full bg-surfaceColor p-2 rounded-md text-textColor border border-borderColor focus:outline-none focus:ring-1 focus:ring-primaryDarkColor"
                     />
                 </div>
 
                 {/* Password */}
                 <div className="flex flex-col">
-                    <label htmlFor="createPassword" className="mb-1 font-medium text-gray-700">
+                    <label htmlFor="createPassword" className="mb-1 font-medium text-textMutedColor">
                         Create Password
                     </label>
                     <input
@@ -158,13 +162,13 @@ const handleSubmitBtn = async (e) => {
                         placeholder="Enter password"
                         required
                         onChange={handleFormChange}
-                        className="w-full bg-gray-100 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        className="w-full bg-surfaceColor p-2 rounded-md text-textColor border border-borderColor focus:outline-none focus:ring-1 focus:ring-primaryDarkColor"
                     />
                 </div>
 
                 {/* Confirm Password */}
                 <div className="flex flex-col">
-                    <label htmlFor="confirmPassword" className="mb-1 font-medium text-gray-700">
+                    <label htmlFor="confirmPassword" className="mb-1 font-medium text-textMutedColor">
                         Confirm Password
                     </label>
                     <input
@@ -174,29 +178,31 @@ const handleSubmitBtn = async (e) => {
                         placeholder="Confirm password"
                         required
                         onChange={handleFormChange}
-                        className="w-full bg-gray-100 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        className="w-full bg-surfaceColor p-2 rounded-md text-textColor border border-borderColor focus:outline-none focus:ring-1 focus:ring-primaryDarkColor"
                     />
                 </div>
 
                 {/* Button */}
                 <button
                     type="submit"
-                    className="w-full py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition duration-200"
+                    className="w-full py-2 bg-primaryColor text-black font-semibold rounded-lg hover:bg-primaryHoverColor cursor-pointer transition duration-200"
                 >
                     Submit
                 </button>
 
                 {message && (
-                    <p className={`text-center text-sm p-2 rounded ${
-                        type === "success" ? "text-green-700 bg-green-100" : "text-red-700 bg-red-100"
-                        }`} 
-                    > 
-                        {message} 
+                    <p className={`flex items-center justify-center gap-2 text-sm p-2 rounded 
+                        ${ type === "success"
+                            ? "ri-shield-check-fill text-green-500 bg-green-100/15 backdrop-blur-sm border"
+                            : "ri-close-circle-fill text-red-500 bg-red-100/15 backdrop-blur-sm border"
+                        }`}
+                    >
+                        {message}
                     </p>
                 )}
 
                 <div>
-                    <Link to="/login" className="text-purple-600 hover:underline">
+                    <Link to="/login" className="text-starColor hover:underline">
                         Already have an account? Login
                     </Link>
                 </div>

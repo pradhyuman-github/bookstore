@@ -51,22 +51,23 @@ export default function AddCart({ isOpen, onClose, cart, setCart }) {
                     ${isOpen ? "translate-x-0" : "translate-x-full"
                     }`}
             >
-                <div className="bg-zinc-800 p-4 flex justify-between items-center border-b">
-                    <h2 className="text-xl text-amber-400 font-bold">Your Cart</h2>
+                <div className="bg-mainBg p-4 flex justify-between items-center border-b border-b-borderColor">
+                    <h2 className="text-xl text-headingColor font-bold">Your Cart</h2>
                     <button
-                        className="ri-close-line text-amber-400 text-2xl font-bold"
+                        className="ri-close-line text-primaryColor text-2xl font-bold"
                         onClick={onClose}>
                     </button>
                 </div>
-
-                <div className="bg-white shadow-sm p-2 sm:p-4 overflow-y-auto flex-1">
+                
+                {/* cart details */}
+                <div className="bg-surfaceColor shadow-sm p-2 sm:p-4 overflow-y-auto flex-1">
                     {cart.length === 0 ? (
-                        <p className="font-lg text-center">No items in cart</p>
+                        <p className="font-lg text-center text-textMutedColor">No items in cart</p>
                     ) :
                         (cart.map(item => (
                             <div
                                 key={item._id}
-                                className="flex flex-col sm:flex-row gap-3 mb-4 border-b pb-2 justify-between"
+                                className="flex flex-col sm:flex-row gap-3 mb-4 border-b border-b-zinc-600 pb-2 justify-between"
                             >
                                 <div className="flex gap-3 min-w-0">
                                     <img
@@ -76,7 +77,7 @@ export default function AddCart({ isOpen, onClose, cart, setCart }) {
 
                                     <div className="flex-1 min-w-0 overflow-hidden">
                                         <p
-                                            className="font-semibold cursor-pointer hover:underline text-sm sm:text-base line-clamp-2 wrap-break-word"
+                                            className="w-45 text-textColor font-semibold cursor-pointer hover:underline text-sm sm:text-base line-clamp-2 wrap-break-word"
                                             onClick={() => {
                                                 navigate(`/product/${item._id}`);
                                                 onClose();
@@ -84,51 +85,55 @@ export default function AddCart({ isOpen, onClose, cart, setCart }) {
                                         >
                                             {item.bookName}
                                         </p>
-                                        <p>₹{item.price}</p>
 
-                                        <div className="w-full flex flex-wrap items-center justify-between sm:gap-20 mt-1">
+                                        <p className="text-textMutedColor" >₹{item.price}</p>
+                                    </div>
+                                    
+                                    {/* final price + qty + delete */}
+                                    <div className="flex flex-col">
+                                        <p className="text-textSecondaryColor font-bold mt-2 sm:mt-0 text-right shrink-0">
+                                            ₹{item.price * item.quantity}
+                                        </p>
+
+                                        <div className="flex flex-wrap items-center justify-between gap-1 mt-1">
                                             <div className="flex items-center gap-2">
                                                 <button
                                                     onClick={() => decreaseQty(item._id)}
-                                                    className="px-2 bg-amber-400 hover:bg-amber-500 text-black font-bold rounded"
+                                                    className="px-2 bg-primaryColor hover:bg-primaryHoverColor text-black font-bold rounded"
                                                 >
                                                     -
                                                 </button>
 
-                                                <span>{item.quantity}</span>
+                                                <span className="text-textColor" >{item.quantity}</span>
 
                                                 <button
                                                     onClick={() => increaseQty(item._id)}
-                                                    className="px-2 bg-amber-400 hover:bg-amber-500 text-black font-bold rounded"
+                                                    className="px-2 bg-primaryColor hover:bg-primaryHoverColor text-black font-bold rounded"
                                                 >
                                                     +
                                                 </button>
                                             </div>
+                                        </div>
 
-                                            <div>
-                                                <button
-                                                    onClick={() => removeItem(item._id)}
-                                                    className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 text-sm sm:text-base rounded"
-                                                >
-                                                    Remove
-                                                </button>
-                                            </div>
+                                        <div className="flex justify-end mt-1">
+                                            <button
+                                                onClick={() => removeItem(item._id)}
+                                                className="ri-delete-bin-line text-lg text-red-600 hover:text-white hover:bg-red-600 px-1 rounded"
+                                            >
+                                            </button>
                                         </div>
                                     </div>
-                                </div>
 
-                                <p className="font-bold mt-2 sm:mt-0 text-right shrink-0">
-                                    ₹{item.price * item.quantity}
-                                </p>
+                                </div>
                             </div>
                         )
                         ))}
                 </div>
 
                 {/* Summary */}
-                <div className="p-4 border-t bg-white sticky bottom-0">
-                    <p>Total items: {totalQuantity}</p>
-                    <h3 className="text-lg font-bold">Total: ₹{totalAmount}</h3>
+                <div className="p-4 border-t border-t-borderColor bg-mainBg sticky bottom-0">
+                    <p className="text-textColor">Total items: {totalQuantity}</p>
+                    <h3 className="text-textSecondaryColor text-lg font-bold">Total: ₹{totalAmount}</h3>
 
                     <button
                         onClick={() => {
@@ -137,7 +142,7 @@ export default function AddCart({ isOpen, onClose, cart, setCart }) {
                             navigate("/checkout");
                             onClose();
                         }}
-                        className="w-full bg-zinc-800 hover:bg-black text-amber-400 font-semibold mt-3 py-2 rounded text-sm sm:text-base">
+                        className="w-full border border-borderColor text-primaryColor font-semibold mt-3 py-2 rounded text-sm sm:text-base hover:border-primaryDarkColor">
                         Checkout
                     </button>
                 </div>

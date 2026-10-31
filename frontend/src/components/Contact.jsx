@@ -4,20 +4,20 @@ import { motion } from "motion/react";
 
 export default function Contact() {
   return (
-    <div className="min-h-screen pt-18 flex flex-col bg-stone-100 overflow-x-hidden">
+    <div className="min-h-screen pt-18 flex flex-col bg-mainBg overflow-x-hidden">
 
       <Header />
 
       <div className="grow w-full mx-auto px-6 py-12">
 
         {/* Title */}
-        <h1 className="text-3xl sm:text-4xl text-zinc-800 underline font-bold text-center mb-6">
+        <h1 className="text-3xl sm:text-4xl text-primaryColor underline font-bold text-center mb-6">
           Contact Us
         </h1>
 
         {/* Intro */}
-        <p className="text-lg sm:text-xl text-zinc-700 text-center mb-10 wrap-break-word">
-          We'd love to hear from you. Reach out to us for any <span className="text-amber-500"> queries,
+        <p className="text-lg sm:text-xl text-textSecondaryColor text-center mb-10 wrap-break-word">
+          We'd love to hear from you. Reach out to us for any <span className="text-starColor"> queries,
           feedback, or support. </span>
         </p>
 
@@ -29,10 +29,10 @@ export default function Contact() {
           >
             {/* Contact Info */}
             <div className="mb-6">
-              <h2 className="text-xl sm:text-2xl text-zinc-800 font-semibold mb-2">
+              <h2 className="text-xl sm:text-2xl text-headingColor font-semibold mb-2">
                 Get in Touch
               </h2>
-              <p className="text-zinc-700">
+              <p className="text-textSecondaryColor">
                 <span className="font-semibold"> Email: </span> support@bookverse.com <br />
                 <span className="font-semibold"> Phone: </span> +91 9911991199
               </p>
@@ -40,10 +40,10 @@ export default function Contact() {
 
             {/* Address */}
             <div className="mb-6">
-              <h2 className="text-xl sm:text-2xl text-zinc-800 font-semibold mb-2">
+              <h2 className="text-xl sm:text-2xl text-headingColor font-semibold mb-2">
                 Address
               </h2>
-              <p className="text-zinc-700">
+              <p className="text-textSecondaryColor">
                 BookVerse Pvt. Ltd. <br />
                 Rajasthan, India
               </p>
@@ -51,10 +51,10 @@ export default function Contact() {
 
             {/* Hours */}
             <div className="mt-6">
-              <h2 className="text-xl sm:text-2xl text-zinc-800 font-semibold mb-2">
-                Working Hours
+              <h2 className="text-xl sm:text-2xl text-headingColor font-semibold mb-2">
+                Business Hours
               </h2>
-              <p className="text-zinc-700">
+              <p className="text-textSecondaryColor">
                 Monday - Saturday <br />
                 10:00 AM - 6:00 PM <br />
                 <span className="font-semibold"> Sunday: Closed </span>
@@ -69,8 +69,8 @@ export default function Contact() {
             transition={{duration: 1}}  
           >
             {/* Map */}
-            <div className="bg-stone-300 p-4 rounded-2xl shadow-lg mt-10">
-              <h2 className="text-xl sm:text-2xl text-zinc-800 font-bold mb-4">
+            <div className="bg-surfaceColor border border-borderColor p-4 rounded-2xl shadow-lg mt-10">
+              <h2 className="text-xl sm:text-2xl text-headingColor font-bold mb-4">
                 Our Location
               </h2>
 

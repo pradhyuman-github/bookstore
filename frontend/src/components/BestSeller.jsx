@@ -7,38 +7,41 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import API from "../config/api";
+import Offer from "./Offer";
 
-export default function BestSeller({addToCart}) {
+export default function BestSeller({ addToCart }) {
 
     const navigate = useNavigate();
     const [viewMode, setViewMode] = useState("grouped");
     const [mostRead, setMostRead] = useState([]);
     const [mostPopular, setMostPopular] = useState([]);
 
-    const BookCard = ({book, navigate, addToCart}) => (
+    const BookCard = ({ book, navigate, addToCart }) => (
 
-        <div className="w-full max-w-70 sm:max-w-75 h-80 sm:h-110 p-4 m-0.5 sm:m-2 mb-8 bg-white rounded-xl flex flex-col items-center hover:shadow-lg hover:-translate-y-2 transition-all duration-300" >
-            <img 
-                src={`${API}/${book.images[0]}`} 
-                alt={book.bookName}
-                className="w-24 h-32 sm:w-40 sm:h-60 object-cover rounded-lg shadow-md" 
-            />
-
-            <p className="text-zinc-900 font-semibold text-center text-sm sm:text-lg py-4 wrap-break-word"> {book.bookName} </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-3 text-sm sm:text-base">
-                <p className="text-emerald-600 font-bold">₹{book.bookPrice}/-</p>
+        <div className="w-full max-w-70 sm:max-w-75 h-80 sm:h-110 p-4 m-0.5 sm:m-2 mb-8 bg-cardColor border border-borderColor rounded-xl flex flex-col hover:bg-cardHoverColor hover:border-primaryDarkColor hover:shadow-lg hover:-translate-y-2 transition-all duration-300" >
+            <div className="place-items-center">
+                <img
+                    src={`${API}/${book.images[0]}`}
+                    alt={book.bookName}
+                    className="w-24 h-32 sm:w-40 sm:h-60 object-cover rounded-lg shadow-md"
+                />
             </div>
 
-            <div className="mt-auto pt-5 flex gap-1.5 sm:gap-3 justify-center">
-                <button 
-                    className="px-1 py-1 sm:px-3 sm:py-2 text-sm sm:text-base rounded-lg bg-amber-400 hover:bg-amber-500 cursor-pointer transition-all duration-200"
+            <div>
+                <p className="text-textColor font-semibold text-sm sm:text-[1rem] pt-4 wrap-break-word"> {book.bookName} </p>
+                <p className="text-textMutedColor text-xs sm:text-base wrap-break-word mb-2 sm:mb-1"> {book.authorName} </p>
+                <p className="text-emerald-600 font-bold text-xs sm:text-base">₹{book.bookPrice}/-</p>
+            </div>
+
+            <div className="mt-auto pt-4 flex gap-1.5 sm:gap-3 justify-center">
+                <button
+                    className="px-1 py-1 sm:px-3 sm:py-2 text-sm sm:text-base rounded-lg font-semibold bg-primaryColor hover:bg-primaryHoverColor cursor-pointer transition-all duration-200"
                     onClick={() => navigate(`/product/${book._id}`)}>
                     Buy
                 </button>
 
-                <button 
-                    className="px-1 py-1 sm:px-4 sm:py-2 text-sm sm:text-base bg-zinc-700 hover:bg-black text-white rounded-lg cursor-pointer transition-all duration-200"
+                <button
+                    className="px-1 py-1 sm:px-4 sm:py-2 text-sm sm:text-base bg-primaryDarkColor hover:bg-primaryHoverColor font-medium rounded-lg cursor-pointer transition-all duration-200"
                     onClick={() => addToCart({
                         _id: book._id,
                         bookName: book.bookName,
@@ -54,21 +57,21 @@ export default function BestSeller({addToCart}) {
     );
 
     useEffect(() => {
-        const fetchBestSellers = async() => {
+        const fetchBestSellers = async () => {
             try {
-                if(viewMode === "mostRead") {
+                if (viewMode === "mostRead") {
                     const res = await fetch(`${API}/books?category=bestSeller&sub=mostRead`);
                     const data = await res.json();
 
-                    if(data.success) {
+                    if (data.success) {
                         setMostRead(data.data);
                     }
                 }
-                else if(viewMode === "mostPopular") {
+                else if (viewMode === "mostPopular") {
                     const res = await fetch(`${API}/books?category=bestSeller&sub=mostPopular`);
                     const data = await res.json();
 
-                    if(data.success) {
+                    if (data.success) {
                         setMostPopular(data.data);
                     }
                 }
@@ -78,12 +81,12 @@ export default function BestSeller({addToCart}) {
 
                     const popularRes = await fetch(`${API}/books?category=bestSeller&sub=mostPopular`);
                     const popularData = await popularRes.json();
-                    
-                    if(readData.success) setMostRead(readData.data);
-                    if(popularData.success) setMostPopular(popularData.data);
+
+                    if (readData.success) setMostRead(readData.data);
+                    if (popularData.success) setMostPopular(popularData.data);
                 }
             }
-            catch(err) {
+            catch (err) {
                 console.log(err);
             }
         };
@@ -91,17 +94,17 @@ export default function BestSeller({addToCart}) {
         fetchBestSellers();
     }, [viewMode]);
 
-    return(
-        <div className="w-full min-h-screen pb-6 bg-zinc-100 flex flex-col overflow-hidden">
-            
-            <h2 className="text-zinc-900 font-bold text-2xl sm:text-3xl text-center px-4 py-8 mt-4">Best Seller</h2>
+    return (
+        <div className="w-full min-h-screen pb-6 bg-surfaceColor border-t border-t-borderColor border-b border-b-borderColor flex flex-col overflow-hidden">
+
+            <h2 className="px-4 py-2 mt-4"> </h2>
 
             {/* back button */}
             {viewMode !== "grouped" && (
-                <button 
+                <button
                     onClick={() => setViewMode("grouped")}
-                    className="ml-4 sm:ml-6 lg:ml-10 mb-4 bg-gray-300 hover:bg-gray-400 transition-all duration-200 px-4 py-2 rounded-lg w-fit"> 
-                Back 
+                    className="ml-4 sm:ml-6 lg:ml-10 mb-4 bg-gray-300 hover:bg-gray-400 transition-all duration-200 px-4 py-2 rounded-lg w-fit">
+                    Back
                 </button>
             )}
 
@@ -110,27 +113,32 @@ export default function BestSeller({addToCart}) {
                 <>
                     {/* most popular */}
                     <div className="flex items-baseline justify-between px-4 sm:px-6 lg:px-10 py-2 gap-4">
-                        <p className="text-zinc-900 text-xl sm:text-2xl font-medium"> Most Popular </p>
-                        <button 
+                        <div>
+                            <p className="text-primaryColor text-lg sm:text-xl font-medium tracking-widest uppercase"> Crowd Picks </p>
+                            <p className="text-headingColor text-xl sm:text-2xl font-bold"> Loved by readers everywhere </p>
+                        </div>
+
+                        <button
                             onClick={() => {
-                                window.scrollTo(0,0);
+                                window.scrollTo(0, 0);
                                 navigate("/books?category=bestSeller&sub=mostPopular")
                             }}
-                            className="bg-zinc-700 hover:bg-black text-white text-sm sm:text-base px-4 py-1 rounded-2xl cursor-pointer"
+                            className="text-primaryColor text-sm sm:text-base p-1 cursor-pointer hover:underline"
                         >
-                            See all
+                            See all →
                         </button>
                     </div>
-                    
-                    <div>
-                        <motion.div 
+
+                    {/* most popular slider */}
+                    <div className="border-b border-b-borderColor lg:pb-10">
+                        <motion.div
                             className="px-2 sm:px-4 lg:px-8"
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{once: true}}
+                            viewport={{ once: true }}
                             transition={{ duration: 1.5 }}
                         >
-                            <Swiper 
+                            <Swiper
                                 modules={[Navigation, Pagination]}
                                 spaceBetween={16}
                                 slidesPerView={2}
@@ -140,17 +148,17 @@ export default function BestSeller({addToCart}) {
                                     640: { slidesPerView: 2 },
                                     768: { slidesPerView: 3 },
                                     1024: { slidesPerView: 5 },
-                                }}  
-                                className="bookSwiper pb-14"  
+                                }}
+                                className="bookSwiper pb-14"
                             >
                                 {/* BOOKS */}
-                                {mostPopular.slice(0,10).map(book => (
+                                {mostPopular.slice(0, 10).map(book => (
                                     <SwiperSlide key={book._id} >
                                         <div className="flex justify-center pb-6">
-                                            <BookCard 
-                                                book={book} 
+                                            <BookCard
+                                                book={book}
                                                 navigate={navigate}
-                                                addToCart={addToCart} 
+                                                addToCart={addToCart}
                                             />
                                         </div>
                                     </SwiperSlide>
@@ -160,29 +168,46 @@ export default function BestSeller({addToCart}) {
 
                     </div>
 
-                    {/* Most Read */} 
+
+                    {/* ===== OFFER ========= */}
+                    <motion.div
+                        initial={{ x: -100, opacity: 0 }}
+                        whileInView={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
+                        className="bg-mainBg border-b border-b-borderColor"
+                    >
+                        <Offer />
+                    </motion.div>
+
+                    {/* Most Read */}
                     <div className="flex items-baseline justify-between px-4 sm:px-6 lg:px-10 py-2 mt-8 gap-4">
-                        <p className="text-zinc-900 text-xl sm:text-2xl font-medium"> Most Read </p>
-                        <button 
+                        <div>
+                            <p className="text-primaryColor text-lg sm:text-xl font-medium tracking-widest uppercase"> Most Read </p>
+                            <p className="text-headingColor text-xl sm:text-2xl font-bold"> The most read-books of all time </p>
+                        </div>
+
+                        <button
                             onClick={() => {
-                                window.scrollTo(0,0);
+                                window.scrollTo(0, 0);
                                 navigate("/books?category=bestSeller&sub=mostRead")
                             }}
-                            className="bg-zinc-700 hover:bg-black text-white text-sm sm:text-base px-4 py-1 rounded-2xl cursor-pointer"
+                            className="text-primaryColor text-sm sm:text-base p-1 cursor-pointer hover:underline"
                         >
-                            See all
+                            See all →
                         </button>
                     </div>
-                    
+
+                    {/* most read slider */}
                     <div>
-                        <motion.div 
+                        <motion.div
                             className="px-2 sm:px-4 lg:px-8"
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{once: true}}
+                            viewport={{ once: true }}
                             transition={{ duration: 1.5 }}
-                        > 
-                            <Swiper 
+                        >
+                            <Swiper
                                 modules={[Navigation, Pagination]}
                                 spaceBetween={10}
                                 slidesPerView={2}
@@ -192,20 +217,20 @@ export default function BestSeller({addToCart}) {
                                     640: { slidesPerView: 2 },
                                     768: { slidesPerView: 3 },
                                     1024: { slidesPerView: 5 },
-                                }}  
-                                className="bookSwiper pb-14"  
+                                }}
+                                className="bookSwiper pb-14"
                             >
 
-                                {mostRead.slice(0,10).map(book => (
+                                {mostRead.slice(0, 10).map(book => (
                                     <SwiperSlide
                                         key={book._id}
                                         className="shrink-0 w-[48%] sm:w-64 flex justify-center snap-center"
                                     >
                                         <div className="flex justify-center pb-6">
                                             <BookCard
-                                                book={book} 
+                                                book={book}
                                                 navigate={navigate}
-                                                addToCart={addToCart} 
+                                                addToCart={addToCart}
                                             />
                                         </div>
                                     </SwiperSlide>
@@ -223,11 +248,11 @@ export default function BestSeller({addToCart}) {
                     <p className="text-xl sm:text-2xl text-zinc-900 font-medium px-4 sm:px-6 lg:px-10 py-4"> Most Popular </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-4 sm:px-6 lg:px-10 justify-items-center">
                         {mostPopular.map((book) => (
-                            <BookCard 
-                                key={book._id} 
-                                book={book} 
+                            <BookCard
+                                key={book._id}
+                                book={book}
                                 navigate={navigate}
-                                addToCart={addToCart} 
+                                addToCart={addToCart}
                             />
                         ))}
                     </div>
@@ -240,11 +265,11 @@ export default function BestSeller({addToCart}) {
                     <p className="text-xl sm:text-2xl text-zinc-900 font-medium px-4 sm:px-6 lg:px-10 py-4"> Most Read </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-4 sm:px-6 lg:px-10 justify-items-center">
                         {mostRead.map((book) => (
-                            <BookCard 
-                                key={book._id} 
-                                book={book} 
+                            <BookCard
+                                key={book._id}
+                                book={book}
                                 navigate={navigate}
-                                addToCart={addToCart} 
+                                addToCart={addToCart}
                             />
                         ))}
                     </div>

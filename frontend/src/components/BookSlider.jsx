@@ -93,7 +93,7 @@ export default function BookSlider() {
   }, [isPaused, sliderBooks]);
 
   return (
-    <div className="w-full py-6 bg-linear-to-b from-zinc-900 to-zinc-100 overflow-hidden">
+    <div className="w-full py-6 bg-linear-to-b from-mainBg via-zinc-800 to-surfaceColor overflow-hidden">
       
       <div
         ref={containerRef}

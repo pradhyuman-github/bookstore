@@ -17,34 +17,31 @@ export default function Recommended({ addToCart }) {
 
     // BOOK CARD
     const BookCard = ({ book }) => (
-        <div className="w-full max-w-70 h-80 sm:h-110 p-4 bg-stone-50 rounded-xl shadow-md flex flex-col items-center hover:shadow-lg hover:-translate-y-2 transition-all duration-300">
-
-            <img
-                src={`${API}/${book.images[0]}`}
-                alt={book.bookName}
-                className="w-24 h-32 sm:w-40 sm:h-60 object-cover rounded-md shrink-0"
-            />
-
-            <p className="text-center text-zinc-900 font-semibold text-sm sm:text-lg py-4 line-clamp-2 min-h-12 sm:min-h-16">
-                {book.bookName}
-            </p>
-
-            <div className="flex items-center justify-center gap-3 text-sm sm:text-base">
-                <p className="text-violet-600 font-bold">
-                    ₹{book.bookPrice}
-                </p>
+        <div className="w-full max-w-70 sm:max-w-75 h-80 sm:h-110 p-4 m-0.5 sm:m-2 mb-8 bg-cardColor border border-borderColor rounded-xl shadow-md flex flex-col hover:bg-cardHoverColor hover:border-primaryDarkColor hover:shadow-lg hover:-translate-y-2 transition-all duration-300">
+            <div className="place-items-center">
+                <img
+                    src={`${API}/${book.images[0]}`}
+                    alt={book.bookName}
+                    className="w-24 h-32 sm:w-40 sm:h-60 object-cover rounded-md shrink-0"
+                />
             </div>
 
-            <div className="mt-auto pt-5 flex gap-2 justify-center">
+            <div>
+                <p className="text-textColor font-semibold text-sm sm:text-[1rem] pt-4 wrap-break-word"> {book.bookName} </p>
+                <p className="text-textMutedColor text-xs sm:text-base wrap-break-word mb-2 sm:mb-1"> {book.authorName} </p>
+                <p className="text-emerald-600 font-bold text-xs sm:text-base">₹{book.bookPrice}/-</p>
+            </div>
+
+            <div className="mt-auto pt-4 flex gap-1.5 sm:gap-3 justify-center">
                 <button
-                    className="px-2 py-1 sm:px-3 sm:py-2 text-sm sm:text-base bg-violet-400 hover:bg-violet-500 text-white rounded-lg transition-all duration-200 cursor-pointer"
+                    className="px-1 py-1 sm:px-3 sm:py-2 text-sm sm:text-base rounded-lg font-semibold bg-primaryColor hover:bg-primaryHoverColor cursor-pointer transition-all duration-200"
                     onClick={() => navigate(`/product/${book._id}`)}
                 >
                     Buy
                 </button>
 
                 <button
-                    className="px-2 py-1 sm:px-4 sm:py-2 text-sm sm:text-base bg-stone-700 hover:bg-stone-800 text-white rounded-lg transition-all duration-200 cursor-pointer"
+                    className="px-1 py-1 sm:px-4 sm:py-2 text-sm sm:text-base bg-primaryDarkColor hover:bg-primaryHoverColor font-medium rounded-lg cursor-pointer transition-all duration-200"
                     onClick={() =>
                         addToCart({
                             _id: book._id,
@@ -75,7 +72,7 @@ export default function Recommended({ addToCart }) {
                 if (data.success) {
                     setEditorBook(data.data);
                 }
-            } 
+            }
             catch (err) {
                 console.log(err);
             }
@@ -85,11 +82,9 @@ export default function Recommended({ addToCart }) {
     }, []);
 
     return (
-        <div className="w-full min-h-fit sm:min-h-screen pb-6 bg-stone-200 flex flex-col mt-20 overflow-x-hidden">
+        <div className="w-full min-h-fit sm:min-h-screen pb-6 bg-surfaceColor flex flex-col border-t border-t-borderColor border-b border-b-borderColor overflow-x-hidden">
 
-            <p className="text-zinc-900 text-2xl sm:text-3xl text-center font-bold py-4 mt-8">
-                Recommended Books
-            </p>
+            <h2 className="px-4 py-2 mt-4"> </h2>
 
             {/* BACK BUTTON */}
             {viewMode === "all" && (
@@ -103,26 +98,31 @@ export default function Recommended({ addToCart }) {
 
             {/* SEE ALL BUTTON */}
             {viewMode === "slider" && (
-                <div className="flex justify-end px-4 sm:px-6 lg:px-10">
+                <div className="flex items-baseline justify-between px-4 sm:px-6 lg:px-10 py-2 gap-4">
+                    <div>
+                        <p className="text-primaryColor text-lg sm:text-xl font-medium tracking-widest uppercase"> Handpicked for you </p>
+                        <p className="text-headingColor text-xl sm:text-2xl font-bold"> A collection worth exploring </p>
+                    </div>
+
                     <button
                         onClick={() => {
                             window.scrollTo(0, 0);
                             navigate("/books?category=recommended");
                         }}
-                        className="bg-violet-400 hover:bg-violet-500 text-white text-sm sm:text-base px-4 py-1 rounded-2xl cursor-pointer transition-all duration-200"
+                        className="text-primaryColor text-sm sm:text-base p-1 cursor-pointer hover:underline"
                     >
-                        See all
+                        See all →
                     </button>
                 </div>
             )}
 
             {/* SLIDER VIEW */}
             {viewMode === "slider" && editorBook.length > 0 && (
-                <motion.div 
-                    className="px-2 sm:px-4 lg:px-8 mt-6"
+                <motion.div
+                    className="px-2 sm:px-4 lg:px-8"
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{once: true}}
+                    viewport={{ once: true }}
                     transition={{ duration: 1.5 }}
                 >
                     <Swiper
@@ -138,11 +138,11 @@ export default function Recommended({ addToCart }) {
                             768: { slidesPerView: 3 },
                             1024: { slidesPerView: 5 },
                         }}
-                        className="recommendSwiper pb-16"
+                        className="bookSwiper pb-16"
                     >
                         {editorBook.slice(0, 10).map((book) => (
                             <SwiperSlide key={book._id}>
-                                <div className="flex justify-center pb-8">
+                                <div className="flex justify-center py-8">
                                     <BookCard
                                         book={book}
                                     />
